@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /statics/data
+Sitemap: https://www.ramadantimes.faith

@@ -1,0 +1,100 @@
+[
+  {
+	"Id": 1,
+    "Shabaan": 29,
+    "EnglishDate": "2020/04/23",
+    "Title": "Sighting of the new moon",
+    "Details": "Birth of the new Moon on Thursday the 23 April 2020 at 04:25"
+  },
+  {
+	"Id": 2,
+    "RamadanDate": 1,
+    "EnglishDate": "2020/04/25",
+    "Title": "1st Ramadan",
+    "Details": "Birth of ʿAbd al-Qādir al-Gīlānī (رضي الله عنه), the eponymous founder of the Qadiriyya spiritual order"
+  },
+  {
+	"Id": 3,
+    "RamadanDate": 3,
+    "EnglishDate": "2020/04/27",
+    "Title": "3rd Ramadan",
+    "Details": "Death Anniversary of Sayyidah Faatimah Az-Zahra Bint Rasoolullah (صلى الله عليه وسلم), Al-Madinah Al-Munawwarah"
+  },
+  {
+	"Id": 4,
+    "RamadanDate": 9,
+    "EnglishDate": "2020/05/03",
+    "Title": "9th Ramadan",
+    "Details": "Death Anniversary of Hazrath Shaikh Sharafuddeen Bu Ali Qalandar Panipati also known as Bu-Ali Qalandar (رضي الله عنه). A Sufi saint of the Chishtī Order who lived and taught in India. His dargah (mausoleum) is in the town of Panipat"
+  },
+  {
+    "Id": 5,
+	"RamadanDate": 10,
+    "EnglishDate": "2020/05/04",
+    "Title": "10th Ramadan",
+    "Details": "Death Anniversary of Mother of the Believers, Sayyidah Khadījah al-Kubra (Khadijah the Great) (رضي الله عنه), wife of Rasulullah (صلى الله عليه وسلم). Her place of resting is in Jannat al-Mu'alla in Mecca, Saudi Arabia"
+  },
+  {
+	"Id": 6,
+    "RamadanDate": 15,
+    "EnglishDate": "2020/05/09",
+    "Title": "15th Ramadan",
+    "Details": "Birth of Al-Hasan ibn Ali (رضي الله عنه), grandson of Rasulullah (صلى الله عليه وسلم), Al-Madinah Al-Munawwarah"
+  },
+  {
+	"Id": 7,
+    "RamadanDate": 17,
+    "EnglishDate": "2020/05/11",
+    "Title": "17th Ramadan",
+    "Details": "Noble participants and the Martyrs of Badr (رضي الله عنه)"
+  },
+  {
+	"Id": 8,
+    "RamadanDate": 17,
+    "EnglishDate": "2020/05/11",
+    "Title": "17th Ramadan",
+    "Details": "Death Anniversary of Mother of the Believers, Sayyidah ‘Ā’ishah bint Abī Bakr (رضي الله عنه), wife of Rasulullah (صلى الله عليه وسلم). Her place of resting is in Jannat al-Baqi in Medina, Saudi Arabia"
+  },
+  {
+	"Id": 9,
+    "RamadanDate": 18,
+    "EnglishDate": "2020/05/08",
+    "Title": "18th Ramadan",
+    "Details": "Death Anniversary of Hazrath Nasiruddin Mahmud Chirag-Dehlavi (رضي الله عنه) also known as Roshan Chirag-e-Delhi ( known as the Illuminated Lamp of Delhi). His dargah (mausoleum) is in the town of Delhi, India"
+  },
+  {
+	"Id": 10,
+    "RamadanDate": 20,
+    "EnglishDate": "2020/05/14",
+    "Title": "20th Ramadan",
+    "Details": "Conquest of Mecca, when Muslims took control of the city after being away from it for 8 years"
+  },
+  {
+	"Id": 11,
+    "RamadanDate": 21,
+    "EnglishDate": "2020/05/15",
+    "Title": "21st Ramadan",
+    "Details": "Death Anniversary of The fourth caliph of Islam, Sayyidunaa Hazrath Ali Ibn Abu Talib (رضي الله عنه). His dargah (mausoleum) is in the town of Najaf, Iraq"
+  },
+  {
+	"Id": 12,
+    "RamadanDate": 27,
+    "EnglishDate": "2020/05/21",
+    "Title": "27th Ramadan",
+    "Details": "Laylat al-Qadr (لیلة القدر) - The Night of Decree, Night of Power"
+  },
+  {
+	"Id": 13,
+    "RamadanDate": 29,
+    "EnglishDate": "2020/05/23",
+    "Title": "Info",
+    "Details": "Zakat ul Fitr must be paid before the Eid Salaah"
+  },
+  {
+	"Id": 14,
+    "RamadanDate": 29,
+    "EnglishDate": "2020/05/23",
+    "Title": "Sighting of the new moon",
+    "Details": "Birth of the new Moon Friday the 22 May 2020 at 19:39"
+  }
+]
