@@ -1,108 +1,141 @@
 <template>
-
   <div class="q-pa-md">
-    <div class="text-h5 text-weight-bold">Preferences</div>
-    <div class="q-gutter-y-md">
+    <div class="text-h5 text-weight-bold q-mb-md">Preferences</div>
+    <q-card>
+      <q-card-section class="q-gutter-y-md">
+        <q-select
+          filled
+          clearable
+          v-model="citySelection"
+          use-input
+          hide-selected
+          fill-input
+          input-debounce="0"
+          :options="options"
+          option-value="id"
+          option-label="city"
+          label="Choose a City"
+          @filter="filterFn"
+          ref="citySelection"
+          lazy-rules
+          :rules="[(val) => !!val || 'Required']"
+        >
+          <template v-slot:prepend>
+            <q-icon name="place" color="primary" />
+          </template>
+          <template v-slot:no-option>
+            <q-item>
+              <q-item-section class="text-grey"> No results </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
 
-      <q-select
-        filled
-        v-model="citySelection"
-        use-input
-        hide-selected
-        fill-input
-        input-debounce="0"
-        :options="options"
-        option-value="id"
-        option-label="city"
-        label="Choose a City"
-        @filter="filterFn"
-        ref="citySelection"
-        lazy-rules
-        :rules="[ val => !!val || 'Required']"
-      >
-        <template v-slot:no-option>
-          <q-item>
-            <q-item-section class="text-grey">
-              No results
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
-      <q-toggle
-        :label="timeSelection"
-        false-value="Hanafi"
-        true-value="Shafi"
-        v-model="timeSelection"
-      />
-    </div>
-    <q-btn
-      @click="saveSettings"
-      color="primary"
-    >Save</q-btn>
+        <q-field
+          filled
+          label="Asr Calculation Method"
+          stack-label
+        >
+          <template v-slot:prepend>
+            <q-icon name="schedule" color="primary" />
+          </template>
+          <template v-slot:control>
+            <div class="self-center full-width no-outline row items-center justify-between">
+              <span class="text-subtitle1 text-weight-bold">{{ timeSelection }}</span>
+              <q-toggle
+                :label="
+                  timeSelection === asrMethods.HANAFI
+                    ? `Switch to ${asrMethods.SHAFI}`
+                    : `Switch to ${asrMethods.HANAFI}`
+                "
+                :false-value="asrMethods.HANAFI"
+                :true-value="asrMethods.SHAFI"
+                color="primary"
+                dense
+                v-model="timeSelection"
+              />
+            </div>
+          </template>
+        </q-field>
+
+        <div>
+          <q-btn
+            @click="saveSettings"
+            color="primary"
+            icon="check"
+            label="Save Preferences"
+          />
+        </div>
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
+import {
+  STORAGE_KEYS,
+  ASR_METHODS,
+  DATA_PATHS,
+} from "src/constants/appConfig";
 
 export default {
-  name: 'Settings',
-  data () {
+  name: "SettingsPage",
+  data() {
     return {
+      asrMethods: ASR_METHODS,
       listOfCities: [],
-      citySelection: '',
-      timeSelection: '',
+      citySelection: "",
+      timeSelection: ASR_METHODS.HANAFI,
       options: null,
-      errors: []
-    }
+    };
   },
 
   methods: {
-    filterFn (val, update, abort) {
+    filterFn(val, update) {
       update(() => {
-        const needle = val.toLowerCase()
-        this.options = this.listOfCities.filter(v => v.city.toLowerCase().indexOf(needle) > -1)
-      })
+        const needle = val.toLowerCase();
+        this.options = this.listOfCities.filter(
+          (v) => v.city.toLowerCase().indexOf(needle) > -1
+        );
+      });
     },
-    saveSettings () {
-      this.$refs.citySelection.validate()
+    saveSettings() {
+      this.$refs.citySelection.validate();
 
       if (this.$refs.citySelection.hasError) {
         this.$q.notify({
-          color: 'negative',
-          message: 'Please select a city'
-        })
-        return
+          color: "negative",
+          message: "Please select a city",
+        });
+        return;
       }
 
       try {
-        this.$q.localStorage.set('city', this.citySelection)
-        this.$q.localStorage.set('time', this.timeSelection)
+        this.$q.localStorage.set(STORAGE_KEYS.CITY, this.citySelection);
+        this.$q.localStorage.set(STORAGE_KEYS.ASR_METHOD, this.timeSelection);
 
         this.$q.notify({
-          icon: 'done',
-          color: 'positive',
-          message: 'Preferences Saved'
-        })
-        this.$router.push('/')
+          icon: "done",
+          color: "positive",
+          message: "Preferences Saved",
+        });
+        this.$router.push("/");
       } catch (e) {
-        // data wasn't successfully saved due to
-        // a Web Storage API error
+        console.log(e);
       }
-    }
+    },
   },
-  created () {
-    axios.get('./statics/data/cities.csv')
-      .then(response => {
-        this.listOfCities = response.data
+  created() {
+    axios
+      .get(DATA_PATHS.CITIES_LIST)
+      .then((response) => {
+        this.listOfCities = response.data;
       })
-      .catch(e => {
-        this.errors.push(e)
-      })
+      .catch(() => {});
 
-    this.citySelection = this.$q.localStorage.getItem('city') ?? ''
-    this.timeSelection = this.$q.localStorage.getItem('time') ?? 'Hanafi'
-  }
-}
-
+    this.citySelection = this.$q.localStorage.getItem(STORAGE_KEYS.CITY) ?? "";
+    this.timeSelection =
+      this.$q.localStorage.getItem(STORAGE_KEYS.ASR_METHOD) ?? ASR_METHODS.HANAFI;
+  },
+};
 </script>

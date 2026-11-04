@@ -1,62 +1,69 @@
 <template>
   <div class="q-pa-md">
-    <div class="text-h5 text-weight-bold">{{city}}</div>
+    <div class="row items-center justify-between no-wrap q-mb-sm">
+      <div
+        class="row items-center no-wrap cursor-pointer col q-pr-sm overflow-hidden"
+        @click="$router.push('/Settings')"
+      >
+        <q-icon name="place" color="green-8" size="sm" class="q-mr-xs" />
+        <span class="text-h6 text-weight-bold ellipsis">{{ city }}</span>
+        <q-icon
+          name="edit"
+          color="grey-6"
+          size="xs"
+          class="q-ml-xs"
+        />
+      </div>
+      <q-badge
+        outline
+        color="green-9"
+        class="q-px-sm q-py-xs text-weight-bold cursor-pointer"
+        @click="$router.push('/Settings')"
+      >
+        Asr: {{ AsrTime }}
+      </q-badge>
+    </div>
     <div class="q-gutter-y-md">
       <q-card>
         <q-tabs
           class="bg-green-8 text-white"
           v-model="tab"
           dense
-          active-color="text-bold"
-          indicator-color="green-5"
-          align="justify"
+          active-color="white"
+          indicator-color="green-3"
           inline-label
         >
-          <q-tab
-            name="next"
-            label="Next"
-            icon="date_range"
-          />
-          <q-tab
-            name="times"
-            label="Times"
-            icon="schedule"
-          />
-          <q-tab
-            name="info"
-            label="Info"
-            icon="sort"
-          />
+          <q-tab name="next" label="Next" icon="date_range" />
+          <q-tab name="times" label="Times" icon="schedule" />
+          <q-tab name="info" label="Info" icon="sort" />
         </q-tabs>
 
-        <q-tab-panels
-          v-model="tab"
-          animated
-        >
+        <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="next">
             <NextTab
-              v-bind:posts="this.posts"
-              v-bind:index="this.current"
-              v-bind:asrTime="this.AsrTime"
-              v-bind:ramadanStart="this.ramadanStarts"
+              :posts="posts"
+              :index="current"
+              :asrTime="AsrTime"
+              :ramadanStart="ramadanStarts"
+              :hijriYear="hijriYear"
             />
-
           </q-tab-panel>
 
           <q-tab-panel name="times">
             <TimeTableTab
-              v-bind:index="this.current"
-              v-bind:posts="this.posts"
-              v-bind:asrTime="this.AsrTime"
+              :index="current"
+              :isRamadanActive="isRamadanActive"
+              :posts="posts"
+              :asrTime="AsrTime"
             />
           </q-tab-panel>
 
           <q-tab-panel name="info">
             <InfoTab
-              v-bind:index="this.current"
-              v-bind:currentDate="this.currentDate"
-              v-bind:posts="this.posts"
-              v-bind:ramadanStart="this.ramadanStarts"
+              :index="current"
+              :currentDate="currentDate"
+              :posts="posts"
+              :ramadanStart="ramadanStarts"
             />
           </q-tab-panel>
         </q-tab-panels>
@@ -66,65 +73,100 @@
 </template>
 
 <script>
-import InfoTab from 'components/InfoTab'
-import TimeTableTab from 'components/TimeTableTab'
-import NextTab from 'components/NextTab'
+import InfoTab from "components/InfoTab.vue";
+import TimeTableTab from "components/TimeTableTab.vue";
+import NextTab from "components/NextTab.vue";
 
-import axios from 'axios'
-import { date } from 'quasar'
+import axios from "axios";
+import { date } from "quasar";
+import {
+  STORAGE_KEYS,
+  ASR_METHODS,
+  DATA_PATHS,
+  RAMADAN_CONFIG,
+  parseTimetableDate,
+  getTodayMidnight,
+} from "src/constants/appConfig";
 
 export default {
-  name: 'TimeTable',
+  name: "TimeTable",
   components: {
     NextTab,
     TimeTableTab,
-    InfoTab
+    InfoTab,
   },
-  created () {
-    this.InitialiseVariables()
-    this.RedirectNewVisitorsToWelcome()
-    this.LoadTimeTableData()
-    this.DeterminCurrentDay()
-  },
-  data () {
-    return {
-      city: '',
-      tab: 'next',
-      current: 1,
-      posts: [],
-      currentDate: ''
+  created() {
+    this.InitialiseVariables();
+    this.RedirectNewVisitorsToWelcome();
+    this.DetermineCurrentDay();
+    if (this.city !== "") {
+      this.LoadTimeTableData();
     }
+  },
+  mounted() {
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
+  },
+  beforeUnmount() {
+    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+  },
+  data() {
+    return {
+      city: "",
+      tab: "next",
+      current: 1,
+      isRamadanActive: false,
+      posts: [],
+      currentDate: null,
+      ramadanStarts: RAMADAN_CONFIG.START_DATE,
+      hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,
+      AsrTime: ASR_METHODS.HANAFI,
+    };
   },
   methods: {
-    LoadTimeTableData () {
-      axios.get('statics/data/city/' + this.city + '.csv')
-        .then(response => {
-          this.posts = response.data
+    LoadTimeTableData() {
+      axios
+        .get(DATA_PATHS.cityTimetable(this.city))
+        .then((response) => {
+          this.posts = response.data;
+          if (Array.isArray(this.posts) && this.posts.length > 0 && this.posts[0].DATE) {
+            this.ramadanStarts = parseTimetableDate(this.posts[0].DATE);
+            this.DetermineCurrentDay(this.posts.length);
+          }
         })
-        .catch(e => {
-          this.errors.push(e)
-        })
+        .catch(() => {});
     },
-    DeterminCurrentDay () {
-      // var ramadanStarts = new Date(2020, 3, 25)
-      this.ramadanStarts = new Date(2020, 3, 25)
-      this.currentDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
-      var page = date.getDateDiff(this.currentDate, this.ramadanStarts, 'days')
-      this.current = page < 0 ? 1 : page + 1
+    DetermineCurrentDay(totalDays) {
+      const daysCount =
+        totalDays ||
+        (Array.isArray(this.posts) && this.posts.length > 0
+          ? this.posts.length
+          : RAMADAN_CONFIG.TOTAL_DAYS);
+      if (!this.ramadanStarts) {
+        this.ramadanStarts = RAMADAN_CONFIG.START_DATE;
+      }
+      this.currentDate = getTodayMidnight();
+      const page = date.getDateDiff(this.currentDate, this.ramadanStarts, "days");
+      this.isRamadanActive = page >= 0 && page < daysCount;
+      this.current = page < 0 ? 1 : page >= daysCount ? 1 : page + 1;
     },
-    InitialiseVariables () {
-      if (this.$q.localStorage.has('city')) {
-        this.city = this.$q.localStorage.getItem('city').city
-      }
-      if (this.$q.localStorage.has('time')) {
-        this.AsrTime = this.$q.localStorage.getItem('time')
+    handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        this.DetermineCurrentDay();
       }
     },
-    RedirectNewVisitorsToWelcome () {
-      if (this.city === '') {
-        this.$router.push('/About')
+    InitialiseVariables() {
+      if (this.$q.localStorage.has(STORAGE_KEYS.CITY)) {
+        this.city = this.$q.localStorage.getItem(STORAGE_KEYS.CITY).city;
       }
-    }
-  }
-}
+      if (this.$q.localStorage.has(STORAGE_KEYS.ASR_METHOD)) {
+        this.AsrTime = this.$q.localStorage.getItem(STORAGE_KEYS.ASR_METHOD);
+      }
+    },
+    RedirectNewVisitorsToWelcome() {
+      if (this.city === "") {
+        this.$router.push("/About");
+      }
+    },
+  },
+};
 </script>

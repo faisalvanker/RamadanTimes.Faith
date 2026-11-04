@@ -1,8 +1,5 @@
 <template>
-  <q-layout
-    view="lHh Lpr lFf"
-    class="bg-lime-1"
-  >
+  <q-layout view="lHh Lpr lFf" class="bg-app-surface">
     <q-header elevated>
       <q-toolbar class="bg-green-8">
         <q-btn
@@ -14,12 +11,23 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
-        <q-toolbar-title>
-          Ramadan Times
+        <q-toolbar-title
+          class="row items-center no-wrap cursor-pointer"
+          @click="$router.push('/')"
+        >
+          <img
+            src="icons/Icon-128.png"
+            alt="Ramadan Times"
+            class="header-mosque-icon q-mr-sm"
+          />
+          <span class="text-weight-bold">Ramadan Times</span>
+          <q-badge
+            color="green-10"
+            text-color="white"
+            :label="`${hijriYear} AH`"
+            class="q-ml-sm text-caption text-weight-bold"
+          />
         </q-toolbar-title>
-
-        <!--<div>Ramadan Times</div>-->
-
       </q-toolbar>
     </q-header>
 
@@ -27,21 +35,20 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      class="bg-app-surface"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Menu
-        </q-item-label>
+        <q-item-label header class="text-grey-8"> Menu </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
+          @click="leftDrawerOpen = false"
         />
       </q-list>
+      <div class="q-pa-md text-caption text-grey-6">
+        Ramadan Times v{{ appVersion }}
+      </div>
     </q-drawer>
 
     <q-page-container>
@@ -51,58 +58,68 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink'
+import EssentialLink from "components/EssentialLink.vue";
+import {
+  APP_VERSION,
+  SHARE_URL,
+  RAMADAN_CONFIG,
+} from "src/constants/appConfig";
 
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
 
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
-  data () {
+  data() {
     return {
+      appVersion: APP_VERSION,
+      hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: 'Ramadan Times',
-          caption: 'Home',
-          icon: 'home',
-          link: ''
+          title: "Ramadan Times",
+          caption: "Home",
+          icon: "home",
+          link: "#/",
         },
         {
-          title: 'Tasbeeh',
-          caption: 'Counter',
-          icon: 'format_list_numbered',
-          link: '#/Tasbeeh'
+          title: "Tasbeeh",
+          caption: "Counter",
+          icon: "format_list_numbered",
+          link: "#/Tasbeeh",
         },
         {
-          title: 'Preferences',
-          caption: 'Choose your city',
-          icon: 'settings',
-          link: '#/Settings'
+          title: "Preferences",
+          caption: "Choose your city",
+          icon: "settings",
+          link: "#/Settings",
         },
         {
-          title: 'Contact',
-          caption: 'send us a message',
-          icon: 'chat',
-          link: '#/Contact'
+          title: "Share",
+          caption: "share on whats app",
+          class: "mobile-only",
+          icon: "share",
+          link: `whatsapp://send?text=${SHARE_URL}`,
         },
         {
-          title: 'Share',
-          caption: 'share on whats app',
-          class: 'mobile-only',
-          icon: 'share',
-          link: 'whatsapp://send?text=https://www.ramadantimes.faith'
+          title: "About",
+          caption: "info about this app",
+          icon: "info",
+          link: "#/About",
         },
-        {
-          title: 'About',
-          caption: 'info about this app',
-          icon: 'info',
-          link: '#/About'
-        }
-      ]
-    }
-  }
-}
+      ],
+    };
+  },
+};
 </script>
+
+<style scoped>
+.header-mosque-icon {
+  height: 28px;
+  width: 28px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+</style>

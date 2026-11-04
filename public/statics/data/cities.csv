@@ -1,0 +1,1778 @@
+[
+  {
+    "id": 1,
+    "city": "Alice"
+  },
+  {
+    "id": 2,
+    "city": "Aliwal North"
+  },
+  {
+    "id": 3,
+    "city": "Amanzimtoti"
+  },
+  {
+    "id": 4,
+    "city": "Amersfoort"
+  },
+  {
+    "id": 5,
+    "city": "Amsterdam"
+  },
+  {
+    "id": 6,
+    "city": "Arlington"
+  },
+  {
+    "id": 7,
+    "city": "Badplaas"
+  },
+  {
+    "id": 8,
+    "city": "Balaka, Malawi"
+  },
+  {
+    "id": 9,
+    "city": "Balfour"
+  },
+  {
+    "id": 10,
+    "city": "Ballito"
+  },
+  {
+    "id": 11,
+    "city": "Barberton"
+  },
+  {
+    "id": 12,
+    "city": "Batshabelo"
+  },
+  {
+    "id": 13,
+    "city": "Beaufort West"
+  },
+  {
+    "id": 14,
+    "city": "Bela Bela"
+  },
+  {
+    "id": 15,
+    "city": "Belfast"
+  },
+  {
+    "id": 16,
+    "city": "Benoni"
+  },
+  {
+    "id": 17,
+    "city": "Bergville"
+  },
+  {
+    "id": 18,
+    "city": "Bethal"
+  },
+  {
+    "id": 19,
+    "city": "Bethlehem"
+  },
+  {
+    "id": 20,
+    "city": "Bhambanana"
+  },
+  {
+    "id": 21,
+    "city": "Big Bend"
+  },
+  {
+    "id": 22,
+    "city": "Bizana"
+  },
+  {
+    "id": 23,
+    "city": "Blantyre, Malawi"
+  },
+  {
+    "id": 24,
+    "city": "Bloemfontein"
+  },
+  {
+    "id": 25,
+    "city": "Bloemhof"
+  },
+  {
+    "id": 26,
+    "city": "Bothaville"
+  },
+  {
+    "id": 27,
+    "city": "Brakpan"
+  },
+  {
+    "id": 28,
+    "city": "Brandfort"
+  },
+  {
+    "id": 29,
+    "city": "Breyten"
+  },
+  {
+    "id": 30,
+    "city": "Brits"
+  },
+  {
+    "id": 31,
+    "city": "Bronkhorstspruit"
+  },
+  {
+    "id": 32,
+    "city": "Buhleni"
+  },
+  {
+    "id": 33,
+    "city": "Bulawayo"
+  },
+  {
+    "id": 34,
+    "city": "Bultfontein"
+  },
+  {
+    "id": 35,
+    "city": "Burgersfort"
+  },
+  {
+    "id": 36,
+    "city": "Bushbuckridge"
+  },
+  {
+    "id": 37,
+    "city": "Butha Buthe"
+  },
+  {
+    "id": 38,
+    "city": "Butterworth"
+  },
+  {
+    "id": 39,
+    "city": "Cala"
+  },
+  {
+    "id": 40,
+    "city": "Caledon"
+  },
+  {
+    "id": 41,
+    "city": "Calvinia"
+  },
+  {
+    "id": 42,
+    "city": "Camperdown"
+  },
+  {
+    "id": 43,
+    "city": "Cape Town"
+  },
+  {
+    "id": 44,
+    "city": "Carltonville"
+  },
+  {
+    "id": 45,
+    "city": "Carolina"
+  },
+  {
+    "id": 46,
+    "city": "Centurion"
+  },
+  {
+    "id": 47,
+    "city": "Champagne Sports Resorts"
+  },
+  {
+    "id": 48,
+    "city": "Chikwawa, Malawi"
+  },
+  {
+    "id": 49,
+    "city": "Chililabombwe, Zambia"
+  },
+  {
+    "id": 50,
+    "city": "Chingola, Zambia"
+  },
+  {
+    "id": 51,
+    "city": "Chipata, Zambia"
+  },
+  {
+    "id": 52,
+    "city": "Chiradzulu, Malawi"
+  },
+  {
+    "id": 53,
+    "city": "Chitipa, Malawi"
+  },
+  {
+    "id": 54,
+    "city": "Choma, Zambia"
+  },
+  {
+    "id": 55,
+    "city": "Chrissiesmeer"
+  },
+  {
+    "id": 56,
+    "city": "Coffeebay"
+  },
+  {
+    "id": 57,
+    "city": "Cofimvaba"
+  },
+  {
+    "id": 58,
+    "city": "Coghlan"
+  },
+  {
+    "id": 59,
+    "city": "Colenso"
+  },
+  {
+    "id": 60,
+    "city": "Colesberg"
+  },
+  {
+    "id": 61,
+    "city": "Colombo, Sri Lanka"
+  },
+  {
+    "id": 62,
+    "city": "Cradock"
+  },
+  {
+    "id": 63,
+    "city": "Creighton"
+  },
+  {
+    "id": 64,
+    "city": "Dalton"
+  },
+  {
+    "id": 65,
+    "city": "Dannhauser"
+  },
+  {
+    "id": 66,
+    "city": "Davel"
+  },
+  {
+    "id": 67,
+    "city": "Deaar"
+  },
+  {
+    "id": 68,
+    "city": "Dedza, Malawi"
+  },
+  {
+    "id": 69,
+    "city": "Delmas"
+  },
+  {
+    "id": 70,
+    "city": "Dendron"
+  },
+  {
+    "id": 71,
+    "city": "Derby"
+  },
+  {
+    "id": 72,
+    "city": "Doha, Qatar"
+  },
+  {
+    "id": 73,
+    "city": "Donda Neno, Malawi"
+  },
+  {
+    "id": 74,
+    "city": "Dordrecht"
+  },
+  {
+    "id": 75,
+    "city": "Dowa, Malawi"
+  },
+  {
+    "id": 76,
+    "city": "Dubai, United Arab Emirates"
+  },
+  {
+    "id": 77,
+    "city": "Dukwe"
+  },
+  {
+    "id": 78,
+    "city": "Dullstroom"
+  },
+  {
+    "id": 79,
+    "city": "Dundee"
+  },
+  {
+    "id": 80,
+    "city": "Dundonald"
+  },
+  {
+    "id": 81,
+    "city": "Durban"
+  },
+  {
+    "id": 82,
+    "city": "Durnacol"
+  },
+  {
+    "id": 83,
+    "city": "Dwaalboom"
+  },
+  {
+    "id": 84,
+    "city": "East London"
+  },
+  {
+    "id": 85,
+    "city": "Edenburg"
+  },
+  {
+    "id": 86,
+    "city": "Ekuvukeni"
+  },
+  {
+    "id": 87,
+    "city": "Elim Hospital Waterval"
+  },
+  {
+    "id": 88,
+    "city": "Elliot"
+  },
+  {
+    "id": 89,
+    "city": "Elliotdale"
+  },
+  {
+    "id": 90,
+    "city": "Empangeni"
+  },
+  {
+    "id": 91,
+    "city": "Engcobo"
+  },
+  {
+    "id": 92,
+    "city": "Ermelo"
+  },
+  {
+    "id": 93,
+    "city": "Eshowe"
+  },
+  {
+    "id": 94,
+    "city": "Esikhaweni"
+  },
+  {
+    "id": 95,
+    "city": "Estcourt"
+  },
+  {
+    "id": 96,
+    "city": "Ezulweni"
+  },
+  {
+    "id": 97,
+    "city": "Ficksburg"
+  },
+  {
+    "id": 98,
+    "city": "Flagstaff"
+  },
+  {
+    "id": 99,
+    "city": "Fort Beaufort"
+  },
+  {
+    "id": 100,
+    "city": "Fouriesburg"
+  },
+  {
+    "id": 101,
+    "city": "Francistown"
+  },
+  {
+    "id": 102,
+    "city": "Frankfort"
+  },
+  {
+    "id": 103,
+    "city": "Gaborone"
+  },
+  {
+    "id": 104,
+    "city": "George"
+  },
+  {
+    "id": 105,
+    "city": "Germiston"
+  },
+  {
+    "id": 106,
+    "city": "Gingindlovu"
+  },
+  {
+    "id": 107,
+    "city": "Giyani"
+  },
+  {
+    "id": 108,
+    "city": "Glencoe"
+  },
+  {
+    "id": 109,
+    "city": "Golela"
+  },
+  {
+    "id": 110,
+    "city": "Grahamstown"
+  },
+  {
+    "id": 111,
+    "city": "Graskop"
+  },
+  {
+    "id": 112,
+    "city": "Greytown"
+  },
+  {
+    "id": 113,
+    "city": "Groblersdal"
+  },
+  {
+    "id": 114,
+    "city": "Groot Marico"
+  },
+  {
+    "id": 115,
+    "city": "Gweta"
+  },
+  {
+    "id": 116,
+    "city": "Hammarsdale"
+  },
+  {
+    "id": 117,
+    "city": "Hanover"
+  },
+  {
+    "id": 118,
+    "city": "Harare"
+  },
+  {
+    "id": 119,
+    "city": "Harding"
+  },
+  {
+    "id": 120,
+    "city": "Harrismith"
+  },
+  {
+    "id": 121,
+    "city": "Hazyview"
+  },
+  {
+    "id": 122,
+    "city": "Hectorspruit"
+  },
+  {
+    "id": 123,
+    "city": "Heidelberg Cape"
+  },
+  {
+    "id": 124,
+    "city": "Heidelberg GP"
+  },
+  {
+    "id": 125,
+    "city": "Heilbron"
+  },
+  {
+    "id": 126,
+    "city": "Henenmann"
+  },
+  {
+    "id": 127,
+    "city": "Hibberdene"
+  },
+  {
+    "id": 128,
+    "city": "Highflats"
+  },
+  {
+    "id": 129,
+    "city": "Hlatikulu"
+  },
+  {
+    "id": 130,
+    "city": "Hlotse Leribe"
+  },
+  {
+    "id": 131,
+    "city": "Hluhluwe"
+  },
+  {
+    "id": 132,
+    "city": "Hoedspruit"
+  },
+  {
+    "id": 133,
+    "city": "Hoopstad"
+  },
+  {
+    "id": 134,
+    "city": "Hopefield"
+  },
+  {
+    "id": 135,
+    "city": "Howick"
+  },
+  {
+    "id": 136,
+    "city": "Humansdorp"
+  },
+  {
+    "id": 137,
+    "city": "Hyderabad, India"
+  },
+  {
+    "id": 138,
+    "city": "Idutywa"
+  },
+  {
+    "id": 139,
+    "city": "Impendle"
+  },
+  {
+    "id": 140,
+    "city": "Inchanga"
+  },
+  {
+    "id": 141,
+    "city": "Ingwavuma"
+  },
+  {
+    "id": 142,
+    "city": "Ishogwe"
+  },
+  {
+    "id": 143,
+    "city": "Ispingo Beach"
+  },
+  {
+    "id": 144,
+    "city": "Ixopo"
+  },
+  {
+    "id": 145,
+    "city": "Jane Furse"
+  },
+  {
+    "id": 146,
+    "city": "Jeddah, Saudi Arabia"
+  },
+  {
+    "id": 147,
+    "city": "Johannesburg"
+  },
+  {
+    "id": 148,
+    "city": "Josefa"
+  },
+  {
+    "id": 149,
+    "city": "Jozini"
+  },
+  {
+    "id": 150,
+    "city": "Kabwe, Zambia"
+  },
+  {
+    "id": 151,
+    "city": "Kafue, Zambia"
+  },
+  {
+    "id": 152,
+    "city": "Kalulushi, Zambia"
+  },
+  {
+    "id": 153,
+    "city": "Kampala"
+  },
+  {
+    "id": 154,
+    "city": "Karachi, Pakistan"
+  },
+  {
+    "id": 155,
+    "city": "Karonga, Malawi"
+  },
+  {
+    "id": 156,
+    "city": "Karridene"
+  },
+  {
+    "id": 157,
+    "city": "Kasama, Zambia"
+  },
+  {
+    "id": 158,
+    "city": "Kasane"
+  },
+  {
+    "id": 159,
+    "city": "Kasungu, Malawi"
+  },
+  {
+    "id": 160,
+    "city": "Katete, Zambia"
+  },
+  {
+    "id": 161,
+    "city": "Keates Drift"
+  },
+  {
+    "id": 162,
+    "city": "Kestell"
+  },
+  {
+    "id": 163,
+    "city": "Kimberly"
+  },
+  {
+    "id": 164,
+    "city": "King Williams Town"
+  },
+  {
+    "id": 165,
+    "city": "Kinross"
+  },
+  {
+    "id": 166,
+    "city": "Kitwe, Zambia"
+  },
+  {
+    "id": 167,
+    "city": "Klerksdorp"
+  },
+  {
+    "id": 168,
+    "city": "Knysna"
+  },
+  {
+    "id": 169,
+    "city": "Kokstad"
+  },
+  {
+    "id": 170,
+    "city": "Komatipoort"
+  },
+  {
+    "id": 171,
+    "city": "Koppies"
+  },
+  {
+    "id": 172,
+    "city": "Koster"
+  },
+  {
+    "id": 173,
+    "city": "Kranskop"
+  },
+  {
+    "id": 174,
+    "city": "Kroonstad"
+  },
+  {
+    "id": 175,
+    "city": "Krugersdorp"
+  },
+  {
+    "id": 176,
+    "city": "Kuruman"
+  },
+  {
+    "id": 177,
+    "city": "Kwajobe"
+  },
+  {
+    "id": 178,
+    "city": "Kwambonambi"
+  },
+  {
+    "id": 179,
+    "city": "Kwamhlanga"
+  },
+  {
+    "id": 180,
+    "city": "Ladybrand"
+  },
+  {
+    "id": 181,
+    "city": "Ladysmith"
+  },
+  {
+    "id": 182,
+    "city": "Laingsburg"
+  },
+  {
+    "id": 183,
+    "city": "Lavumisa"
+  },
+  {
+    "id": 184,
+    "city": "Lebowakgomo"
+  },
+  {
+    "id": 185,
+    "city": "Leeudoringstad"
+  },
+  {
+    "id": 186,
+    "city": "Lenasia"
+  },
+  {
+    "id": 187,
+    "city": "Lephalale"
+  },
+  {
+    "id": 188,
+    "city": "Leslie"
+  },
+  {
+    "id": 189,
+    "city": "Letlhakane"
+  },
+  {
+    "id": 190,
+    "city": "Libode"
+  },
+  {
+    "id": 191,
+    "city": "Lichtenburg"
+  },
+  {
+    "id": 192,
+    "city": "Likoma, Malawi"
+  },
+  {
+    "id": 193,
+    "city": "Lilongwe, Malawi"
+  },
+  {
+    "id": 194,
+    "city": "Lindley"
+  },
+  {
+    "id": 195,
+    "city": "Livingstone, Zambia"
+  },
+  {
+    "id": 196,
+    "city": "Livingstone"
+  },
+  {
+    "id": 197,
+    "city": "Lomahasha"
+  },
+  {
+    "id": 198,
+    "city": "Lothair"
+  },
+  {
+    "id": 199,
+    "city": "Louis Trichardt"
+  },
+  {
+    "id": 200,
+    "city": "Louwsburg"
+  },
+  {
+    "id": 201,
+    "city": "Lower Sabie"
+  },
+  {
+    "id": 202,
+    "city": "Luanda"
+  },
+  {
+    "id": 203,
+    "city": "Luangwa, Zambia"
+  },
+  {
+    "id": 204,
+    "city": "Luanshya, Zambia"
+  },
+  {
+    "id": 205,
+    "city": "Lundazi, Zambia"
+  },
+  {
+    "id": 206,
+    "city": "Lusaka, Zambia"
+  },
+  {
+    "id": 207,
+    "city": "Lusaka"
+  },
+  {
+    "id": 208,
+    "city": "Lusikisiki"
+  },
+  {
+    "id": 209,
+    "city": "Lydenburg"
+  },
+  {
+    "id": 210,
+    "city": "Machadodorp"
+  },
+  {
+    "id": 211,
+    "city": "Machinga, Malawi"
+  },
+  {
+    "id": 212,
+    "city": "Maclear"
+  },
+  {
+    "id": 213,
+    "city": "Madinah, Saudi Arabia"
+  },
+  {
+    "id": 214,
+    "city": "Mafeteng"
+  },
+  {
+    "id": 215,
+    "city": "Mafikeng"
+  },
+  {
+    "id": 216,
+    "city": "Makkah, Saudi Arabia"
+  },
+  {
+    "id": 217,
+    "city": "Malelane"
+  },
+  {
+    "id": 218,
+    "city": "Mangochi, Malawi"
+  },
+  {
+    "id": 219,
+    "city": "Manguzi"
+  },
+  {
+    "id": 220,
+    "city": "Mansa, Zambia"
+  },
+  {
+    "id": 221,
+    "city": "Manzini"
+  },
+  {
+    "id": 222,
+    "city": "Mapelane Mozambique"
+  },
+  {
+    "id": 223,
+    "city": "Maputo"
+  },
+  {
+    "id": 224,
+    "city": "Marble Hall"
+  },
+  {
+    "id": 225,
+    "city": "Margate"
+  },
+  {
+    "id": 226,
+    "city": "Marquard"
+  },
+  {
+    "id": 227,
+    "city": "Maseru"
+  },
+  {
+    "id": 228,
+    "city": "Masvingo"
+  },
+  {
+    "id": 229,
+    "city": "Matatiele"
+  },
+  {
+    "id": 230,
+    "city": "Matiwane"
+  },
+  {
+    "id": 231,
+    "city": "Matsamo"
+  },
+  {
+    "id": 232,
+    "city": "Matsulu"
+  },
+  {
+    "id": 233,
+    "city": "Maun"
+  },
+  {
+    "id": 234,
+    "city": "Mayflower"
+  },
+  {
+    "id": 235,
+    "city": "Mazabuka, Zambia"
+  },
+  {
+    "id": 236,
+    "city": "Mbabane"
+  },
+  {
+    "id": 237,
+    "city": "Mchinji, Malawi"
+  },
+  {
+    "id": 238,
+    "city": "Melmoth"
+  },
+  {
+    "id": 239,
+    "city": "Memel"
+  },
+  {
+    "id": 240,
+    "city": "Messina"
+  },
+  {
+    "id": 241,
+    "city": "Middelburg"
+  },
+  {
+    "id": 242,
+    "city": "Midrand"
+  },
+  {
+    "id": 243,
+    "city": "Mkuze"
+  },
+  {
+    "id": 244,
+    "city": "Modimolle"
+  },
+  {
+    "id": 245,
+    "city": "Mohales Hoek"
+  },
+  {
+    "id": 246,
+    "city": "Mokopane"
+  },
+  {
+    "id": 247,
+    "city": "Molteno"
+  },
+  {
+    "id": 248,
+    "city": "Mongu, Zambia"
+  },
+  {
+    "id": 249,
+    "city": "Monze, Zambia"
+  },
+  {
+    "id": 250,
+    "city": "Mooi River"
+  },
+  {
+    "id": 251,
+    "city": "Morgenzon"
+  },
+  {
+    "id": 252,
+    "city": "Mossel Bay"
+  },
+  {
+    "id": 253,
+    "city": "Mount Ayliff"
+  },
+  {
+    "id": 254,
+    "city": "Mount Fletcher"
+  },
+  {
+    "id": 255,
+    "city": "Mount Frere"
+  },
+  {
+    "id": 256,
+    "city": "Mpika, Zambia"
+  },
+  {
+    "id": 257,
+    "city": "Mpulungu, Zambia"
+  },
+  {
+    "id": 258,
+    "city": "Mqanduli"
+  },
+  {
+    "id": 259,
+    "city": "Mseleni"
+  },
+  {
+    "id": 260,
+    "city": "Mtubatuba"
+  },
+  {
+    "id": 261,
+    "city": "Mtunzini"
+  },
+  {
+    "id": 262,
+    "city": "Mufulira, Zambia"
+  },
+  {
+    "id": 263,
+    "city": "Mulanje, Malawi"
+  },
+  {
+    "id": 264,
+    "city": "Mumbwa, Zambia"
+  },
+  {
+    "id": 265,
+    "city": "Murehwa"
+  },
+  {
+    "id": 266,
+    "city": "Mwanza, Malawi"
+  },
+  {
+    "id": 267,
+    "city": "Mwinilunga, Zambia"
+  },
+  {
+    "id": 268,
+    "city": "Mzimba, Malawi"
+  },
+  {
+    "id": 269,
+    "city": "Mzinto"
+  },
+  {
+    "id": 270,
+    "city": "Mzuzu, Malawi"
+  },
+  {
+    "id": 271,
+    "city": "Ndola, Zambia"
+  },
+  {
+    "id": 272,
+    "city": "Ndumo"
+  },
+  {
+    "id": 273,
+    "city": "Nelspruit"
+  },
+  {
+    "id": 274,
+    "city": "New Hanover"
+  },
+  {
+    "id": 275,
+    "city": "Newcastle"
+  },
+  {
+    "id": 276,
+    "city": "Ngcobo"
+  },
+  {
+    "id": 277,
+    "city": "Ngqeleni"
+  },
+  {
+    "id": 278,
+    "city": "Nhlangano"
+  },
+  {
+    "id": 279,
+    "city": "Nigel"
+  },
+  {
+    "id": 280,
+    "city": "Nkandla"
+  },
+  {
+    "id": 281,
+    "city": "Nkhata Bay, Malawi"
+  },
+  {
+    "id": 282,
+    "city": "Nkhotakota, Malawi"
+  },
+  {
+    "id": 283,
+    "city": "Nongoma"
+  },
+  {
+    "id": 284,
+    "city": "Northam"
+  },
+  {
+    "id": 285,
+    "city": "Nsanje, Malawi"
+  },
+  {
+    "id": 286,
+    "city": "Ntcheu, Malawi"
+  },
+  {
+    "id": 287,
+    "city": "Ntchisi, Malawi"
+  },
+  {
+    "id": 288,
+    "city": "Nyimba, Zambia"
+  },
+  {
+    "id": 289,
+    "city": "Odendaalsrus"
+  },
+  {
+    "id": 290,
+    "city": "Ogies"
+  },
+  {
+    "id": 291,
+    "city": "Orapa"
+  },
+  {
+    "id": 292,
+    "city": "Orkney"
+  },
+  {
+    "id": 293,
+    "city": "Oudtshoorn"
+  },
+  {
+    "id": 294,
+    "city": "Paarl"
+  },
+  {
+    "id": 295,
+    "city": "Paddock"
+  },
+  {
+    "id": 296,
+    "city": "Park Rynie"
+  },
+  {
+    "id": 297,
+    "city": "Parys"
+  },
+  {
+    "id": 298,
+    "city": "Paulpietersburg"
+  },
+  {
+    "id": 299,
+    "city": "Paulroux"
+  },
+  {
+    "id": 300,
+    "city": "Peddie"
+  },
+  {
+    "id": 301,
+    "city": "Perdekop"
+  },
+  {
+    "id": 302,
+    "city": "Petauke, Zambia"
+  },
+  {
+    "id": 303,
+    "city": "Petauke"
+  },
+  {
+    "id": 304,
+    "city": "Petrustuyn"
+  },
+  {
+    "id": 305,
+    "city": "Phalaborwa"
+  },
+  {
+    "id": 306,
+    "city": "Phalombe, Malawi"
+  },
+  {
+    "id": 307,
+    "city": "Phola"
+  },
+  {
+    "id": 308,
+    "city": "Phuthaditjhaba"
+  },
+  {
+    "id": 309,
+    "city": "Piet Retief"
+  },
+  {
+    "id": 310,
+    "city": "Pietermaritzburg"
+  },
+  {
+    "id": 311,
+    "city": "Piggs Peak"
+  },
+  {
+    "id": 312,
+    "city": "Piketburg"
+  },
+  {
+    "id": 313,
+    "city": "Pilgrimsrest"
+  },
+  {
+    "id": 314,
+    "city": "Pinetown"
+  },
+  {
+    "id": 315,
+    "city": "Plettenberg Bay"
+  },
+  {
+    "id": 316,
+    "city": "Polokwane"
+  },
+  {
+    "id": 317,
+    "city": "Pomeroy"
+  },
+  {
+    "id": 318,
+    "city": "Pongola"
+  },
+  {
+    "id": 319,
+    "city": "Port Alfred"
+  },
+  {
+    "id": 320,
+    "city": "Port Edward"
+  },
+  {
+    "id": 321,
+    "city": "Port Elizabeth"
+  },
+  {
+    "id": 322,
+    "city": "Port Shepstone"
+  },
+  {
+    "id": 323,
+    "city": "Port St Johns"
+  },
+  {
+    "id": 324,
+    "city": "Potchefstroom"
+  },
+  {
+    "id": 325,
+    "city": "Pretoria"
+  },
+  {
+    "id": 326,
+    "city": "Punda Maria"
+  },
+  {
+    "id": 327,
+    "city": "Queenstown"
+  },
+  {
+    "id": 328,
+    "city": "Qumbu"
+  },
+  {
+    "id": 329,
+    "city": "Quthing"
+  },
+  {
+    "id": 330,
+    "city": "Reitz"
+  },
+  {
+    "id": 331,
+    "city": "Richards Bay"
+  },
+  {
+    "id": 332,
+    "city": "Richmond Cape"
+  },
+  {
+    "id": 333,
+    "city": "Richmond"
+  },
+  {
+    "id": 334,
+    "city": "Riversdale"
+  },
+  {
+    "id": 335,
+    "city": "Riviersonderend"
+  },
+  {
+    "id": 336,
+    "city": "Roedtan"
+  },
+  {
+    "id": 337,
+    "city": "Roodepoort"
+  },
+  {
+    "id": 338,
+    "city": "Rosendal"
+  },
+  {
+    "id": 339,
+    "city": "Roshnee"
+  },
+  {
+    "id": 340,
+    "city": "Rumphi, Malawi"
+  },
+  {
+    "id": 341,
+    "city": "Rustenburg"
+  },
+  {
+    "id": 342,
+    "city": "Sabie"
+  },
+  {
+    "id": 343,
+    "city": "Saldanha"
+  },
+  {
+    "id": 344,
+    "city": "Salima, Malawi"
+  },
+  {
+    "id": 345,
+    "city": "Satara"
+  },
+  {
+    "id": 346,
+    "city": "Schweizer Reneke"
+  },
+  {
+    "id": 347,
+    "city": "Scottburgh"
+  },
+  {
+    "id": 348,
+    "city": "Secunda"
+  },
+  {
+    "id": 349,
+    "city": "Sehithwa"
+  },
+  {
+    "id": 350,
+    "city": "Senekal"
+  },
+  {
+    "id": 351,
+    "city": "Sesheke, Zambia"
+  },
+  {
+    "id": 352,
+    "city": "Sezela"
+  },
+  {
+    "id": 353,
+    "city": "Shakawe"
+  },
+  {
+    "id": 354,
+    "city": "Shakse"
+  },
+  {
+    "id": 355,
+    "city": "Shashe"
+  },
+  {
+    "id": 356,
+    "city": "Shashis"
+  },
+  {
+    "id": 357,
+    "city": "Sheepmoor"
+  },
+  {
+    "id": 358,
+    "city": "Shiluvane"
+  },
+  {
+    "id": 359,
+    "city": "Siavonga, Zambia"
+  },
+  {
+    "id": 360,
+    "city": "Sikhemelele"
+  },
+  {
+    "id": 361,
+    "city": "Siphofaneni"
+  },
+  {
+    "id": 362,
+    "city": "Siteki"
+  },
+  {
+    "id": 363,
+    "city": "Skukuza"
+  },
+  {
+    "id": 364,
+    "city": "Smithfield"
+  },
+  {
+    "id": 365,
+    "city": "Sodwana Bay"
+  },
+  {
+    "id": 366,
+    "city": "Solwezi, Zambia"
+  },
+  {
+    "id": 367,
+    "city": "Somerset East"
+  },
+  {
+    "id": 368,
+    "city": "Somerset West"
+  },
+  {
+    "id": 369,
+    "city": "Springbok"
+  },
+  {
+    "id": 370,
+    "city": "Springs"
+  },
+  {
+    "id": 371,
+    "city": "St Lucia"
+  },
+  {
+    "id": 372,
+    "city": "Standerton"
+  },
+  {
+    "id": 373,
+    "city": "Stanger"
+  },
+  {
+    "id": 374,
+    "city": "Steelpoort"
+  },
+  {
+    "id": 375,
+    "city": "Sterkspruit"
+  },
+  {
+    "id": 376,
+    "city": "Sterkstroom"
+  },
+  {
+    "id": 377,
+    "city": "Steynburg"
+  },
+  {
+    "id": 378,
+    "city": "Steynsrus"
+  },
+  {
+    "id": 379,
+    "city": "Stoffberg"
+  },
+  {
+    "id": 380,
+    "city": "Summerveld"
+  },
+  {
+    "id": 381,
+    "city": "Swartruggens"
+  },
+  {
+    "id": 382,
+    "city": "Swellendam"
+  },
+  {
+    "id": 383,
+    "city": "Tabankulu"
+  },
+  {
+    "id": 384,
+    "city": "Teyateyaneng"
+  },
+  {
+    "id": 385,
+    "city": "Thabazimbi"
+  },
+  {
+    "id": 386,
+    "city": "Theunissen"
+  },
+  {
+    "id": 387,
+    "city": "Thohoyandou"
+  },
+  {
+    "id": 388,
+    "city": "Thyolo, Malawi"
+  },
+  {
+    "id": 389,
+    "city": "Tongaat"
+  },
+  {
+    "id": 390,
+    "city": "Trichardt"
+  },
+  {
+    "id": 391,
+    "city": "Trompsburg"
+  },
+  {
+    "id": 392,
+    "city": "Tsolo"
+  },
+  {
+    "id": 393,
+    "city": "Tsomo"
+  },
+  {
+    "id": 394,
+    "city": "Tugela Ferry"
+  },
+  {
+    "id": 395,
+    "city": "Tweeling"
+  },
+  {
+    "id": 396,
+    "city": "Tzaneen"
+  },
+  {
+    "id": 397,
+    "city": "Ugie"
+  },
+  {
+    "id": 398,
+    "city": "Uitenhage"
+  },
+  {
+    "id": 399,
+    "city": "Uitkyk"
+  },
+  {
+    "id": 400,
+    "city": "Ulundi"
+  },
+  {
+    "id": 401,
+    "city": "Umdloti"
+  },
+  {
+    "id": 402,
+    "city": "Umkomaas"
+  },
+  {
+    "id": 403,
+    "city": "Umtata"
+  },
+  {
+    "id": 404,
+    "city": "Umzimkulu"
+  },
+  {
+    "id": 405,
+    "city": "Umzinto"
+  },
+  {
+    "id": 406,
+    "city": "Underberg"
+  },
+  {
+    "id": 407,
+    "city": "Upington"
+  },
+  {
+    "id": 408,
+    "city": "Utrecht"
+  },
+  {
+    "id": 409,
+    "city": "Van Reenen"
+  },
+  {
+    "id": 410,
+    "city": "Vanderbijlpark"
+  },
+  {
+    "id": 411,
+    "city": "Ventersburg"
+  },
+  {
+    "id": 412,
+    "city": "Ventersdorp"
+  },
+  {
+    "id": 413,
+    "city": "Vereeniging"
+  },
+  {
+    "id": 414,
+    "city": "Verulam"
+  },
+  {
+    "id": 415,
+    "city": "Victoria Falls"
+  },
+  {
+    "id": 416,
+    "city": "Villiers"
+  },
+  {
+    "id": 417,
+    "city": "Volksrust"
+  },
+  {
+    "id": 418,
+    "city": "Vrede"
+  },
+  {
+    "id": 419,
+    "city": "Vryburg"
+  },
+  {
+    "id": 420,
+    "city": "Vryheid"
+  },
+  {
+    "id": 421,
+    "city": "Wakkerstroom"
+  },
+  {
+    "id": 422,
+    "city": "Warburton"
+  },
+  {
+    "id": 423,
+    "city": "Warden"
+  },
+  {
+    "id": 424,
+    "city": "Warmbaths"
+  },
+  {
+    "id": 425,
+    "city": "Warrenton"
+  },
+  {
+    "id": 426,
+    "city": "Wasbank"
+  },
+  {
+    "id": 427,
+    "city": "Weenen"
+  },
+  {
+    "id": 428,
+    "city": "Welkom"
+  },
+  {
+    "id": 429,
+    "city": "Wesselsbron"
+  },
+  {
+    "id": 430,
+    "city": "White River"
+  },
+  {
+    "id": 431,
+    "city": "Willowvale"
+  },
+  {
+    "id": 432,
+    "city": "Winburg"
+  },
+  {
+    "id": 433,
+    "city": "Windhoek"
+  },
+  {
+    "id": 434,
+    "city": "Winterton"
+  },
+  {
+    "id": 435,
+    "city": "Witbank"
+  },
+  {
+    "id": 436,
+    "city": "Witrivier"
+  },
+  {
+    "id": 437,
+    "city": "Witsieshoek"
+  },
+  {
+    "id": 438,
+    "city": "Wolmaransstad"
+  },
+  {
+    "id": 439,
+    "city": "Worcester"
+  },
+  {
+    "id": 440,
+    "city": "Zambezi, Zambia"
+  },
+  {
+    "id": 441,
+    "city": "Zastron"
+  },
+  {
+    "id": 442,
+    "city": "Zebediela"
+  },
+  {
+    "id": 443,
+    "city": "Zeerust"
+  },
+  {
+    "id": 444,
+    "city": "Zomba, Malawi"
+  }
+]
