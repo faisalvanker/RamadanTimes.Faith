@@ -30,6 +30,9 @@ export default configure(function (/* ctx */) {
       },
 
       vueRouterMode: "hash",
+      htmlMinifyOptions: {
+        removeAttributeQuotes: false,
+      },
     },
 
     devServer: {

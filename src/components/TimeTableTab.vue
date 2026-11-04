@@ -104,9 +104,6 @@
           :disable="current <= 1"
           @click="stepDay(-1)"
         />
-        <span class="text-subtitle1 text-weight-bold text-green-10 q-px-sm">
-          {{ fastDate }}
-        </span>
         <q-btn
           flat
           round
