@@ -17,11 +17,14 @@
         >
           <img
             src="icons/Icon-128.png"
-            alt="Ramadan Times"
+            :alt="isRamadanActive ? 'Ramadan Times' : 'Salaah Times'"
             class="header-mosque-icon q-mr-sm"
           />
-          <span class="text-weight-bold">Ramadan Times</span>
+          <span class="text-weight-bold">
+            {{ isRamadanActive ? "Ramadan Times" : "Salaah Times" }}
+          </span>
           <q-badge
+            v-if="isRamadanActive"
             color="green-10"
             text-color="white"
             :label="`${hijriYear} AH`"
@@ -63,6 +66,7 @@ import {
   APP_VERSION,
   SHARE_URL,
   RAMADAN_CONFIG,
+  isCurrentlyRamadan,
 } from "src/constants/appConfig";
 
 export default {
@@ -73,13 +77,15 @@ export default {
   },
 
   data() {
+    const isRamadanActive = isCurrentlyRamadan();
     return {
       appVersion: APP_VERSION,
       hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,
+      isRamadanActive,
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: "Ramadan Times",
+          title: isRamadanActive ? "Ramadan Times" : "Salaah Times",
           caption: "Home",
           icon: "home",
           link: "#/",
@@ -101,7 +107,7 @@ export default {
           caption: "share on whats app",
           class: "mobile-only",
           icon: "share",
-          link: `whatsapp://send?text=${SHARE_URL}`,
+          link: `whatsapp://send?text=${encodeURIComponent(SHARE_URL)}`,
         },
         {
           title: "About",

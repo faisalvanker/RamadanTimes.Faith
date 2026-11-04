@@ -1,7 +1,7 @@
 {
   "name": "ramadantimes",
   "version": "2.1.0",
-  "description": "Ramadan Times",
+  "description": "Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting and Salaah Times. Supports over 340 Cities and Towns.",
   "productName": "Ramadan Times",
   "author": "Faisal Vanker",
   "private": true,

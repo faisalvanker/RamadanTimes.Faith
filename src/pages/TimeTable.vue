@@ -20,7 +20,7 @@
         class="q-px-sm q-py-xs text-weight-bold cursor-pointer"
         @click="$router.push('/Settings')"
       >
-        Asr: {{ AsrTime }}
+        {{ AsrTime }}
       </q-badge>
     </div>
     <div class="q-gutter-y-md">
@@ -35,7 +35,12 @@
         >
           <q-tab name="next" label="Next" icon="date_range" />
           <q-tab name="times" label="Times" icon="schedule" />
-          <q-tab name="info" label="Info" icon="sort" />
+          <q-tab
+            v-if="isRamadanActive"
+            name="info"
+            label="Info"
+            icon="sort"
+          />
         </q-tabs>
 
         <q-tab-panels v-model="tab" animated>
@@ -43,6 +48,8 @@
             <NextTab
               :posts="posts"
               :index="current"
+              :isRamadanActive="isRamadanActive"
+              :isPerpetual="isPerpetual"
               :asrTime="AsrTime"
               :ramadanStart="ramadanStarts"
               :hijriYear="hijriYear"
@@ -53,14 +60,16 @@
             <TimeTableTab
               :index="current"
               :isRamadanActive="isRamadanActive"
+              :isPerpetual="isPerpetual"
               :posts="posts"
               :asrTime="AsrTime"
             />
           </q-tab-panel>
 
-          <q-tab-panel name="info">
+          <q-tab-panel v-if="isRamadanActive" name="info">
             <InfoTab
               :index="current"
+              :isRamadanActive="isRamadanActive"
               :currentDate="currentDate"
               :posts="posts"
               :ramadanStart="ramadanStarts"
@@ -86,6 +95,7 @@ import {
   RAMADAN_CONFIG,
   parseTimetableDate,
   getTodayMidnight,
+  buildCitySchedule,
 } from "src/constants/appConfig";
 
 export default {
@@ -115,6 +125,8 @@ export default {
       tab: "next",
       current: 1,
       isRamadanActive: false,
+      isPerpetual: false,
+      rawCityData: null,
       posts: [],
       currentDate: null,
       ramadanStarts: RAMADAN_CONFIG.START_DATE,
@@ -127,27 +139,57 @@ export default {
       axios
         .get(DATA_PATHS.cityTimetable(this.city))
         .then((response) => {
-          this.posts = response.data;
-          if (Array.isArray(this.posts) && this.posts.length > 0 && this.posts[0].DATE) {
-            this.ramadanStarts = parseTimetableDate(this.posts[0].DATE);
-            this.DetermineCurrentDay(this.posts.length);
-          }
+          this.rawCityData = response.data;
+          this.ApplySchedule();
         })
         .catch(() => {});
     },
-    DetermineCurrentDay(totalDays) {
-      const daysCount =
-        totalDays ||
-        (Array.isArray(this.posts) && this.posts.length > 0
-          ? this.posts.length
-          : RAMADAN_CONFIG.TOTAL_DAYS);
-      if (!this.ramadanStarts) {
+    ApplySchedule() {
+      this.currentDate = getTodayMidnight();
+      if (!this.rawCityData) return;
+
+      // For legacy 30-day JSON files, read start date from row 0 if present
+      if (
+        Array.isArray(this.rawCityData) &&
+        this.rawCityData.length > 0 &&
+        this.rawCityData[0].DATE
+      ) {
+        this.ramadanStarts = parseTimetableDate(this.rawCityData[0].DATE);
+      } else {
         this.ramadanStarts = RAMADAN_CONFIG.START_DATE;
       }
+
+      const schedule = buildCitySchedule(
+        this.rawCityData,
+        this.currentDate,
+        this.ramadanStarts,
+        RAMADAN_CONFIG.TOTAL_DAYS
+      );
+
+      this.posts = schedule.posts;
+      this.current = schedule.currentIndex;
+      this.isRamadanActive = schedule.isRamadanActive;
+      this.isPerpetual = schedule.isPerpetual;
+    },
+    DetermineCurrentDay() {
       this.currentDate = getTodayMidnight();
-      const page = date.getDateDiff(this.currentDate, this.ramadanStarts, "days");
-      this.isRamadanActive = page >= 0 && page < daysCount;
-      this.current = page < 0 ? 1 : page >= daysCount ? 1 : page + 1;
+      if (this.rawCityData) {
+        this.ApplySchedule();
+        return;
+      }
+      const page = date.getDateDiff(
+        this.currentDate,
+        this.ramadanStarts,
+        "days"
+      );
+      this.isRamadanActive =
+        page >= 0 && page < RAMADAN_CONFIG.TOTAL_DAYS;
+      this.current =
+        page < 0
+          ? 1
+          : page >= RAMADAN_CONFIG.TOTAL_DAYS
+            ? 1
+            : page + 1;
     },
     handleVisibilityChange() {
       if (document.visibilityState === "visible") {

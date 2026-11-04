@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title><%= productName %></title>
 
@@ -7,31 +7,57 @@
     <meta name="description" content="<%= productDescription %>" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
+    />
 
-    <% if (ctx.mode.pwa) { %>
-	<!-- Google / Search Engine Tags -->
-	<meta itemprop="name" content="Ramadan Time Table for South Africa">
-	<meta itemprop="description" content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting Times. Supports over 300 Cities and Towns together with a progress graph and daily duas.">
-	<meta itemprop="image" content="https://www.ramadantimes.faith/icons/Icon-512.png">
+    <!-- Google / Search Engine Tags -->
+    <meta itemprop="name" content="Ramadan Time Table for South Africa" />
+    <meta
+      itemprop="description"
+      content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting and Salaah Times. Supports over 340 Cities and Towns together with a progress graph and daily duas."
+    />
+    <meta
+      itemprop="image"
+      content="https://www.ramadantimes.faith/icons/Icon-512.png"
+    />
 
-	<!-- Facebook Meta Tags -->
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="Ramadan Time Table for South Africa">
-	<meta property="og:description" content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting Times. Supports over 300 Cities and Towns together with a progress graph and daily duas.">
-	<meta property="og:image" content="https://www.ramadantimes.faith/icons/Icon-512.png">
-	<meta property="og:image:secure_url" content="https://www.ramadantimes.faith/icons/Icon-512.png">
-	<meta property="og:image:alt" content="Ramadan Times" />
-	<meta property="og:url" content="https://www.ramadantimes.faith">
-	<meta property="fb:app_id" content="113980585602771" />
+    <!-- Open Graph / WhatsApp / Facebook Meta Tags -->
+    <meta property="og:site_name" content="Ramadan Times" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.ramadantimes.faith" />
+    <meta property="og:title" content="Ramadan Time Table for South Africa" />
+    <meta
+      property="og:description"
+      content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting and Salaah Times. Supports over 340 Cities and Towns together with a progress graph and daily duas."
+    />
+    <meta
+      property="og:image"
+      content="https://www.ramadantimes.faith/icons/Icon-512.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="https://www.ramadantimes.faith/icons/Icon-512.png"
+    />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="545" />
+    <meta property="og:image:alt" content="Ramadan Times" />
+    <meta property="fb:app_id" content="113980585602771" />
 
-	<!-- Twitter -->
-	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://www.ramadantimes.faith">
-	<meta property="twitter:title" content="Ramadan Time Table for South Africa">
-	<meta property="twitter:description" content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting Times. Supports over 300 Cities and Towns together with a progress graph and daily duas.">
-	<meta property="twitter:image" content="https://www.ramadantimes.faith/icons/Icon-512.png">
-    <% } %>
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.ramadantimes.faith" />
+    <meta name="twitter:title" content="Ramadan Time Table for South Africa" />
+    <meta
+      name="twitter:description"
+      content="Ramadan Times is an interactive mobile web application that allows Muslims in South Africa to keep track of Fasting and Salaah Times. Supports over 340 Cities and Towns together with a progress graph and daily duas."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.ramadantimes.faith/icons/Icon-512.png"
+    />
 
     <link
       rel="icon"

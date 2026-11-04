@@ -14,9 +14,10 @@
           <q-item class="bg-grey-2">
             <q-item-section>
               <div class="row items-center q-gutter-x-sm">
-                <span>Fast {{ fastNo }}</span>
+                <span v-if="isRamadanActive">Fast {{ fastNo }}</span>
+                <span v-else>{{ dayName }}</span>
                 <q-badge
-                  v-if="isRamadanActive && current === index"
+                  v-if="current === index"
                   color="green-8"
                   text-color="white"
                   label="Today"
@@ -26,7 +27,7 @@
             <q-item-section side class="text-grey-9">
               <div class="row items-center q-gutter-x-sm">
                 <q-btn
-                  v-if="isRamadanActive && current !== index"
+                  v-if="current !== index"
                   flat
                   dense
                   no-caps
@@ -73,6 +74,7 @@
     </div>
     <div class="q-pa-lg flex flex-center">
       <q-pagination
+        v-if="isRamadanActive"
         v-model="current"
         :max="maxDays"
         size="25px"
@@ -81,12 +83,62 @@
         input-class="text-green-10 text-weight-bold"
         @update:model-value="RefreshTimeTable()"
       />
+      <div v-else class="row items-center q-gutter-x-sm">
+        <q-btn
+          flat
+          round
+          dense
+          color="green-8"
+          icon="first_page"
+          aria-label="First Day of Year"
+          :disable="current <= 1"
+          @click="goToDay(1)"
+        />
+        <q-btn
+          flat
+          round
+          dense
+          color="green-8"
+          icon="chevron_left"
+          aria-label="Previous Day"
+          :disable="current <= 1"
+          @click="stepDay(-1)"
+        />
+        <span class="text-subtitle1 text-weight-bold text-green-10 q-px-sm">
+          {{ fastDate }}
+        </span>
+        <q-btn
+          flat
+          round
+          dense
+          color="green-8"
+          icon="chevron_right"
+          aria-label="Next Day"
+          :disable="current >= maxDays"
+          @click="stepDay(1)"
+        />
+        <q-btn
+          flat
+          round
+          dense
+          color="green-8"
+          icon="last_page"
+          aria-label="Last Day of Year"
+          :disable="current >= maxDays"
+          @click="goToDay(maxDays)"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ASR_METHODS, RAMADAN_CONFIG } from "src/constants/appConfig";
+import {
+  ASR_METHODS,
+  RAMADAN_CONFIG,
+  getAsrTime,
+  getEshaTime,
+} from "src/constants/appConfig";
 
 export default {
   name: "TimeTableTab",
@@ -96,6 +148,7 @@ export default {
       slideDirection: "slide-left",
       fastNo: "",
       fastDate: "",
+      dayName: "",
       sehri: "",
       fajr: "",
       zohr: "",
@@ -111,6 +164,10 @@ export default {
       default: 1,
     },
     isRamadanActive: {
+      type: Boolean,
+      default: false,
+    },
+    isPerpetual: {
       type: Boolean,
       default: false,
     },
@@ -131,10 +188,14 @@ export default {
   },
   watch: {
     posts: function () {
+      this.current = this.index;
       this.RefreshTimeTable();
     },
     index: function (newVal) {
       this.current = newVal;
+      this.RefreshTimeTable();
+    },
+    asrTime: function () {
       this.RefreshTimeTable();
     },
     current: function (newVal, oldVal) {
@@ -152,13 +213,27 @@ export default {
       if (!item) return;
       this.fastNo = item.FAST;
       this.fastDate = item.DATE;
+      this.dayName = item.DAY_NAME || "";
       this.fajr = item.FAJR;
       this.sehri = item.SERI;
       this.zohr = item.ZOHR;
-      this.asr = this.asrTime === ASR_METHODS.HANAFI ? item.ASRH : item.ASRS;
+      this.asr = getAsrTime(item, this.asrTime);
       this.magrib = item.IFTAR;
-      this.esha = item.ESHA;
+      this.esha = getEshaTime(item, this.asrTime);
       this.duration = item.DURATION;
+    },
+    stepDay(delta) {
+      const next = this.current + delta;
+      if (next >= 1 && next <= this.maxDays) {
+        this.current = next;
+        this.RefreshTimeTable();
+      }
+    },
+    goToDay(dayNum) {
+      if (dayNum >= 1 && dayNum <= this.maxDays) {
+        this.current = dayNum;
+        this.RefreshTimeTable();
+      }
     },
     goToToday() {
       this.current = this.index;

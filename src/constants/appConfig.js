@@ -20,19 +20,21 @@ export const ASR_METHODS = {
 export const DATA_PATHS = {
   CITIES_LIST: "statics/data/cities.csv",
   INFO_LIST: "statics/data/info.csv",
-  cityTimetable: (cityName) => `statics/data/city/${cityName}.csv`,
+  cityTimetable: (cityName) =>
+    `statics/data/city/${cityName}.csv?v=${APP_VERSION}`,
   dailyDua: (dayNumber) => `statics/data/dua/${dayNumber}.csv`,
 };
 
 /**
- * Annual Ramadan settings (the only config values to update each year alongside CSVs):
- * - HIJRI_YEAR: Current Islamic Hijri year
- * - START_DATE: Fallback start of Ramadan (also read dynamically from row 1 of city CSVs)
+ * Annual Ramadan settings (the only config values to update each year):
+ * - HIJRI_YEAR: Current/Upcoming Islamic Hijri year
+ * - START_DATE: 1st of Ramadan (Month is 0-indexed: 0 = Jan, 1 = Feb, etc.)
+ * - TOTAL_DAYS: 30 (change to 29 if Shawwal moon is sighted on the 29th night)
  */
 export const RAMADAN_CONFIG = {
   // --- Update Annually ---
-  HIJRI_YEAR: "1447",
-  START_DATE: new Date(2026, 1, 19), // 19 Feb 2026 (Month is 0-indexed: 1 = Feb)
+  HIJRI_YEAR: "1448",
+  START_DATE: new Date(2027, 1, 9), // 09 Feb 2027
 
   // --- Fixed Constants ---
   TOTAL_DAYS: 30,
@@ -62,7 +64,7 @@ const MONTH_MAP = {
 };
 
 /**
- * Parses a date string from the city CSV (e.g. "19-Feb-2026") into a local Date at midnight.
+ * Parses a date string from a legacy city CSV (e.g. "09-Feb-2027") into a local Date at midnight.
  * Falls back to RAMADAN_CONFIG.START_DATE if invalid or empty.
  */
 export function parseTimetableDate(dateStr) {
@@ -98,4 +100,185 @@ export function getTodayMidnight() {
 export function createPrayerDateTime(baseDate, prayerTime) {
   const [hours, minutes] = prayerTime.split(":").map(Number);
   return date.addToDate(baseDate, { hours, minutes });
+}
+
+/**
+ * Returns the Asr time based on Hanafi / Shafi selection.
+ */
+export function getAsrTime(item, method) {
+  if (!item) return "";
+  return method === ASR_METHODS.HANAFI ? item.ASRH : item.ASRS;
+}
+
+/**
+ * Returns the Esha time based on Hanafi / Shafi selection (with fallback to item.ESHA).
+ */
+export function getEshaTime(item, method) {
+  if (!item) return "";
+  if (method === ASR_METHODS.HANAFI) {
+    return item.ESHAH || item.ESHA || "";
+  }
+  return item.ESHAS || item.ESHA || "";
+}
+
+/**
+ * Calculates fasting duration string ("X Hrs and Y Min") between Suhoor (SERI) and Magrib (IFTAR).
+ */
+export function calculateDuration(seriTime, iftarTime) {
+  if (!seriTime || !iftarTime) return "";
+  const [sH, sM] = seriTime.split(":").map(Number);
+  const [iH, iM] = iftarTime.split(":").map(Number);
+  const totalMins = iH * 60 + iM - (sH * 60 + sM);
+  if (Number.isNaN(totalMins) || totalMins <= 0) return "";
+  const hrs = Math.floor(totalMins / 60);
+  const mins = totalMins % 60;
+  return `${hrs} Hrs and ${mins} Min`;
+}
+
+/**
+ * Returns true if today's date falls within the configured Ramadan window.
+ */
+export function isCurrentlyRamadan(
+  currentDate = getTodayMidnight(),
+  ramadanStart = RAMADAN_CONFIG.START_DATE,
+  totalRamadanDays = RAMADAN_CONFIG.TOTAL_DAYS
+) {
+  const diff = date.getDateDiff(currentDate, ramadanStart, "days");
+  return diff >= 0 && diff < totalRamadanDays;
+}
+
+/**
+ * Parses either a 366-day "Perpetual Salaah Times" CSV string or a legacy 30-day JSON array.
+ * Returns { posts, currentIndex, isRamadanActive, isPerpetual }.
+ */
+export function buildCitySchedule(
+  rawData,
+  currentDate = getTodayMidnight(),
+  ramadanStart = RAMADAN_CONFIG.START_DATE,
+  totalRamadanDays = RAMADAN_CONFIG.TOTAL_DAYS
+) {
+  const diffFromRamadan = date.getDateDiff(currentDate, ramadanStart, "days");
+  const isRamadanActive =
+    diffFromRamadan >= 0 && diffFromRamadan < totalRamadanDays;
+
+  // Case 1: 366-day Perpetual Salaah Times CSV text
+  if (typeof rawData === "string" && !rawData.trim().startsWith("[")) {
+    const lines = rawData.split(/\r?\n/);
+    const rowByDayMonth = new Map();
+    const rawRows = [];
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!/^\d{2}\s+[A-Za-z]{3},/.test(trimmed)) continue;
+      const cols = trimmed.split(",").map((c) => c.trim());
+      if (cols.length < 13) continue;
+
+      const [dayStr, monthStr] = cols[0].split(/\s+/);
+      const dayMonthKey = `${dayStr}-${monthStr}`;
+      const seri = cols[1];
+      const fajr = cols[2];
+      const sunrise = cols[3];
+      const zohr = cols[7];
+      const asrs = cols[8];
+      const asrh = cols[9];
+      const iftar = cols[10];
+      const eshas = cols[11];
+      const eshah = cols[12];
+
+      const rowObj = {
+        DAY_MONTH: dayMonthKey,
+        DAY_NUM: Number(dayStr),
+        MONTH_STR: monthStr,
+        SERI: seri,
+        FAJR: fajr,
+        SUNRISE: sunrise,
+        ZOHR: zohr,
+        ASRS: asrs,
+        ASRH: asrh,
+        IFTAR: iftar,
+        ESHAS: eshas,
+        ESHAH: eshah,
+        ESHA: eshah,
+        DURATION: calculateDuration(seri, iftar),
+      };
+
+      rowByDayMonth.set(dayMonthKey, rowObj);
+      rawRows.push(rowObj);
+    }
+
+    if (isRamadanActive) {
+      // Slice the exact 30 (or 29) days of Ramadan using real calendar dates
+      const ramadanPosts = [];
+      for (let i = 0; i < totalRamadanDays; i++) {
+        const fastDateObj = date.addToDate(ramadanStart, { days: i });
+        const key = date.formatDate(fastDateObj, "DD-MMM");
+        const matched = rowByDayMonth.get(key);
+        if (matched) {
+          ramadanPosts.push({
+            ...matched,
+            FAST: i + 1,
+            DATE: date.formatDate(fastDateObj, "DD-MMM-YYYY"),
+            DAY_NAME: date.formatDate(fastDateObj, "dddd"),
+          });
+        }
+      }
+      return {
+        posts: ramadanPosts,
+        currentIndex: diffFromRamadan + 1,
+        isRamadanActive: true,
+        isPerpetual: true,
+      };
+    }
+
+    // Outside of Ramadan: build full calendar year for currentDate's year
+    const currentYear = currentDate.getFullYear();
+    const isLeap =
+      (currentYear % 4 === 0 && currentYear % 100 !== 0) ||
+      currentYear % 400 === 0;
+    const yearPosts = [];
+
+    for (const row of rawRows) {
+      if (!isLeap && row.DAY_MONTH === "29-Feb") continue;
+      const monthIdx = MONTH_MAP[row.MONTH_STR];
+      const dObj = new Date(currentYear, monthIdx, row.DAY_NUM);
+      yearPosts.push({
+        ...row,
+        FAST: yearPosts.length + 1,
+        DATE: date.formatDate(dObj, "DD-MMM-YYYY"),
+        DAY_NAME: date.formatDate(dObj, "dddd"),
+      });
+    }
+
+    const todayFormatted = date.formatDate(currentDate, "DD-MMM-YYYY");
+    const todayIndex = yearPosts.findIndex((r) => r.DATE === todayFormatted);
+
+    return {
+      posts: yearPosts,
+      currentIndex: todayIndex >= 0 ? todayIndex + 1 : 1,
+      isRamadanActive: false,
+      isPerpetual: true,
+    };
+  }
+
+  // Case 2: Legacy 30-day JSON array (or JSON string)
+  const parsedArray =
+    typeof rawData === "string" ? JSON.parse(rawData) : rawData;
+  const posts = Array.isArray(parsedArray)
+    ? parsedArray.map((item) => {
+        const dObj = parseTimetableDate(item.DATE);
+        return {
+          ...item,
+          ESHAS: item.ESHAS || item.ESHA,
+          ESHAH: item.ESHAH || item.ESHA,
+          DAY_NAME: date.formatDate(dObj, "dddd"),
+        };
+      })
+    : [];
+
+  return {
+    posts,
+    currentIndex: isRamadanActive ? diffFromRamadan + 1 : 1,
+    isRamadanActive,
+    isPerpetual: false,
+  };
 }

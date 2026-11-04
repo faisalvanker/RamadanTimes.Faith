@@ -66,7 +66,7 @@
         </q-list>
       </div>
 
-      <div class="q-mt-md">
+      <div v-if="isRamadanActive" class="q-mt-md">
         <q-list bordered class="rounded-borders overflow-hidden">
           <q-expansion-item
             group="somegroup"
@@ -123,6 +123,8 @@ import {
   RAMADAN_CONFIG,
   getTodayMidnight,
   createPrayerDateTime,
+  getAsrTime,
+  getEshaTime,
 } from "src/constants/appConfig";
 
 export default {
@@ -147,6 +149,14 @@ export default {
     index: {
       type: Number,
       default: 1,
+    },
+    isRamadanActive: {
+      type: Boolean,
+      default: false,
+    },
+    isPerpetual: {
+      type: Boolean,
+      default: false,
     },
     posts: {
       type: Array,
@@ -173,6 +183,9 @@ export default {
       this.LoadDailyDua();
       this.LoadNextPrayer();
     },
+    asrTime: function () {
+      this.LoadNextPrayer();
+    },
   },
   mounted() {
     this.current = this.index - 1;
@@ -196,16 +209,18 @@ export default {
       }
     },
     LoadDailyDua() {
+      if (!this.isRamadanActive) return;
+      const safeIndex = Math.max(1, this.index || 1);
+      const duaDay = ((safeIndex - 1) % RAMADAN_CONFIG.TOTAL_DAYS) + 1;
       axios
-        .get(DATA_PATHS.dailyDua(this.index))
+        .get(DATA_PATHS.dailyDua(duaDay))
         .then((response) => {
           this.dailyDua = response.data.dua;
         })
         .catch(() => {});
     },
     LoadNextPrayer() {
-      if (Date.now() <= this.ramadanStart || !this.posts || this.posts.length === 0) {
-        this.SetCurrentNextPrayer("Ramadan", "", this.hijriYear, "", null);
+      if (!this.posts || this.posts.length === 0) {
         return;
       }
 
@@ -215,18 +230,25 @@ export default {
       const today = getTodayMidnight();
       const fajr = createPrayerDateTime(today, item.FAJR);
       const zohr = createPrayerDateTime(today, item.ZOHR);
-      const asrSelectionTime =
-        this.asrTime === ASR_METHODS.HANAFI ? item.ASRH : item.ASRS;
+      const asrSelectionTime = getAsrTime(item, this.asrTime);
       const asr = createPrayerDateTime(today, asrSelectionTime);
       const magrib = createPrayerDateTime(today, item.IFTAR);
-      const esha = createPrayerDateTime(today, item.ESHA);
+      const eshaSelectionTime = getEshaTime(item, this.asrTime);
+      const esha = createPrayerDateTime(today, eshaSelectionTime);
       const fajrException = createPrayerDateTime(today, item.SUNRISE);
+      const magribLabel = this.isRamadanActive ? "Iftar" : "Magrib";
 
       this.FastDate = item.DATE;
-      this.RamadanDate = `${item.FAST} Ramadan ${this.hijriYear}`;
+      this.RamadanDate = this.isRamadanActive
+        ? `${item.FAST} Ramadan ${this.hijriYear}`
+        : item.DAY_NAME || "";
 
       if (Date.now() <= fajr) {
-        this.SetCurrentNextPrayer("Suhoor", item.SERI, "Fajr", item.FAJR, fajr);
+        if (this.isRamadanActive) {
+          this.SetCurrentNextPrayer("Suhoor", item.SERI, "Fajr", item.FAJR, fajr);
+        } else {
+          this.SetCurrentNextPrayer("Esha", eshaSelectionTime, "Fajr", item.FAJR, fajr);
+        }
         return;
       }
 
@@ -246,12 +268,12 @@ export default {
       }
 
       if (Date.now() <= magrib) {
-        this.SetCurrentNextPrayer("Asr", asrSelectionTime, "Iftar", item.IFTAR, magrib);
+        this.SetCurrentNextPrayer("Asr", asrSelectionTime, magribLabel, item.IFTAR, magrib);
         return;
       }
 
       if (Date.now() <= esha) {
-        this.SetCurrentNextPrayer("Iftar", item.IFTAR, "Esha", item.ESHA, esha);
+        this.SetCurrentNextPrayer(magribLabel, item.IFTAR, "Esha", eshaSelectionTime, esha);
         return;
       }
 
@@ -260,22 +282,29 @@ export default {
         let nextPrayerTime = "";
         let nextPrayerDate = null;
 
-        if (this.current < this.posts.length - 1) {
-          const nextItem = this.posts[this.current + 1];
+        const nextIdx =
+          this.current < this.posts.length - 1
+            ? this.current + 1
+            : this.isPerpetual
+              ? 0
+              : -1;
+
+        if (nextIdx >= 0) {
+          const nextItem = this.posts[nextIdx];
           if (nextItem) {
-            nextPrayer = "Suhoor";
-            nextPrayerTime = nextItem.SERI;
+            nextPrayer = this.isRamadanActive ? "Suhoor" : "Fajr";
+            nextPrayerTime = this.isRamadanActive ? nextItem.SERI : nextItem.FAJR;
             const tomorrow = date.addToDate(today, { days: 1 });
-            nextPrayerDate = createPrayerDateTime(tomorrow, nextItem.SERI);
+            nextPrayerDate = createPrayerDateTime(tomorrow, nextPrayerTime);
           }
         }
 
         this.SetCurrentNextPrayer(
           "Esha",
-          item.ESHA,
+          eshaSelectionTime,
           nextPrayer,
           nextPrayerTime,
-          nextPrayerDate,
+          nextPrayerDate
         );
       }
     },

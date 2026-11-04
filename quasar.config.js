@@ -56,6 +56,37 @@ export default configure(function (/* ctx */) {
       swFilename: "sw.js",
       manifestFilename: "manifest.json",
       useCredentialsForManifestTag: false,
+      extendGenerateSWOptions(cfg) {
+        cfg.globIgnores = cfg.globIgnores || [];
+        cfg.globIgnores.push(
+          "**/statics/data/city/**",
+          "**/statics/data/info.csv"
+        );
+        cfg.runtimeCaching = [
+          {
+            urlPattern: /statics\/data\/city\/.*\.csv$/,
+            handler: "StaleWhileRevalidate",
+            options: {
+              cacheName: "city-timetables-cache",
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 10 * 24 * 60 * 60, // 10 days
+              },
+            },
+          },
+          {
+            urlPattern: /statics\/data\/info\.csv$/,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "ramadan-info-cache",
+              expiration: {
+                maxEntries: 5,
+                maxAgeSeconds: 10 * 24 * 60 * 60, // 10 days
+              },
+            },
+          },
+        ];
+      },
     },
 
     cordova: {},

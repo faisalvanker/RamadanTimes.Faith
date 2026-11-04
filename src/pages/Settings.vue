@@ -32,7 +32,7 @@
 
         <q-field
           filled
-          label="Asr Calculation Method"
+          label="Calculation Method (Asr & Esha)"
           stack-label
         >
           <template v-slot:prepend>
