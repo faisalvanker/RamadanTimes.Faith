@@ -1,3 +1,4 @@
+import axios from "axios";
 import { date } from "quasar";
 import pkg from "../../package.json";
 
@@ -18,6 +19,7 @@ export const ASR_METHODS = {
 };
 
 export const DATA_PATHS = {
+  CONFIG: "statics/data/config.json",
   CITIES_LIST: "statics/data/cities.csv",
   INFO_LIST: "statics/data/info.csv",
   cityTimetable: (cityName) =>
@@ -62,6 +64,48 @@ const MONTH_MAP = {
   Nov: 10,
   Dec: 11,
 };
+
+/**
+ * Parses an ISO "YYYY-MM-DD" date string into a local Date at midnight (00:00:00).
+ */
+export function parseIsoDateLocal(isoStr) {
+  if (!isoStr || typeof isoStr !== "string") return RAMADAN_CONFIG.START_DATE;
+  const parts = isoStr.trim().split(/[-/]/).map(Number);
+  if (parts.length === 3 && !parts.some(Number.isNaN)) {
+    return new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+  return RAMADAN_CONFIG.START_DATE;
+}
+
+let configPromise = null;
+
+/**
+ * Loads public/statics/data/config.json so annual changes do not require rebuilding the app.
+ * Falls back to RAMADAN_CONFIG defaults if offline.
+ */
+export function fetchAnnualConfig() {
+  if (!configPromise) {
+    configPromise = axios
+      .get(`${DATA_PATHS.CONFIG}?t=${Date.now()}`)
+      .then((res) => {
+        const data = res.data;
+        if (data && typeof data === "object") {
+          if (data.hijriYear) {
+            RAMADAN_CONFIG.HIJRI_YEAR = String(data.hijriYear);
+          }
+          if (data.startDate) {
+            RAMADAN_CONFIG.START_DATE = parseIsoDateLocal(data.startDate);
+          }
+          if (data.totalDays) {
+            RAMADAN_CONFIG.TOTAL_DAYS = Number(data.totalDays);
+          }
+        }
+        return RAMADAN_CONFIG;
+      })
+      .catch(() => RAMADAN_CONFIG);
+  }
+  return configPromise;
+}
 
 /**
  * Parses a date string from a legacy city CSV (e.g. "09-Feb-2027") into a local Date at midnight.

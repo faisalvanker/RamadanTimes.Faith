@@ -96,6 +96,7 @@ import {
   parseTimetableDate,
   getTodayMidnight,
   buildCitySchedule,
+  fetchAnnualConfig,
 } from "src/constants/appConfig";
 
 export default {
@@ -109,6 +110,11 @@ export default {
     this.InitialiseVariables();
     this.RedirectNewVisitorsToWelcome();
     this.DetermineCurrentDay();
+    fetchAnnualConfig().then((cfg) => {
+      this.ramadanStarts = cfg.START_DATE;
+      this.hijriYear = cfg.HIJRI_YEAR;
+      this.DetermineCurrentDay();
+    });
     if (this.city !== "") {
       this.LoadTimeTableData();
     }

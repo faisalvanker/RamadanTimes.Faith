@@ -39,10 +39,16 @@ import {
   SHARE_URL,
   CONTACT_EMAIL_DISPLAY,
   RAMADAN_CONFIG,
+  fetchAnnualConfig,
 } from "src/constants/appConfig";
 
 export default {
   name: "AboutPage",
+  created() {
+    fetchAnnualConfig().then((cfg) => {
+      this.hijriYear = cfg.HIJRI_YEAR;
+    });
+  },
   data() {
     return {
       hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,

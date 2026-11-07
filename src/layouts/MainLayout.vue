@@ -67,6 +67,7 @@ import {
   SHARE_URL,
   RAMADAN_CONFIG,
   isCurrentlyRamadan,
+  fetchAnnualConfig,
 } from "src/constants/appConfig";
 
 export default {
@@ -74,6 +75,16 @@ export default {
 
   components: {
     EssentialLink,
+  },
+
+  created() {
+    fetchAnnualConfig().then((cfg) => {
+      this.hijriYear = cfg.HIJRI_YEAR;
+      this.isRamadanActive = isCurrentlyRamadan();
+      this.essentialLinks[0].title = this.isRamadanActive
+        ? "Ramadan Times"
+        : "Salaah Times";
+    });
   },
 
   data() {

@@ -63,11 +63,23 @@ export default configure(function (/* ctx */) {
         cfg.globIgnores = cfg.globIgnores || [];
         cfg.globIgnores.push(
           "**/statics/data/city/**",
-          "**/statics/data/info.csv"
+          "**/statics/data/info.csv",
+          "**/statics/data/config.json"
         );
         cfg.runtimeCaching = [
           {
-            urlPattern: /statics\/data\/city\/.*\.csv$/,
+            urlPattern: /statics\/data\/config\.json/,
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "ramadan-config-cache",
+              expiration: {
+                maxEntries: 2,
+                maxAgeSeconds: 10 * 24 * 60 * 60,
+              },
+            },
+          },
+          {
+            urlPattern: /statics\/data\/city\/.*\.csv/,
             handler: "StaleWhileRevalidate",
             options: {
               cacheName: "city-timetables-cache",
@@ -78,7 +90,7 @@ export default configure(function (/* ctx */) {
             },
           },
           {
-            urlPattern: /statics\/data\/info\.csv$/,
+            urlPattern: /statics\/data\/info\.csv/,
             handler: "NetworkFirst",
             options: {
               cacheName: "ramadan-info-cache",
