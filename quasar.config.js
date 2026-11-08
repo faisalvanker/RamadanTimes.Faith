@@ -68,7 +68,8 @@ export default configure(function (/* ctx */) {
           "**/statics/data/islamic_months.csv",
           "**/statics/data/config.json",
           "**/icons/apple-launch-*.png",
-          "**/icons/screenshot-*.png"
+          "**/icons/screenshot-*.png",
+          "**/_headers"
         );
         cfg.runtimeCaching = [
           {
