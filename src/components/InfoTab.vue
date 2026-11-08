@@ -8,7 +8,8 @@
           show-value
           v-model="getPercentComplete"
           size="180px"
-          :thickness="0.43"
+          font-size="32px"
+          :thickness="0.34"
           color="green-8"
           track-color="green-2"
           class="text-green-9 text-weight-bold q-ma-md"
@@ -37,18 +38,68 @@
         <div class="text-subtitle1 text-weight-bold">{{ DetermineRamadanStage() }}</div>
       </q-banner>
       <q-separator class="q-mt-md" />
+      <div class="q-px-lg q-pb-md">
+        <q-timeline color="green-8">
+          <q-timeline-entry
+            v-for="item in Info"
+            :key="item.Id"
+            :title="item.Title"
+            :subtitle="FormatDate(item.computedDate)"
+            :body="item.computedDetails"
+          />
+        </q-timeline>
+      </div>
     </template>
-    <div class="q-px-lg q-pb-md">
-      <q-timeline color="green-8">
-        <q-timeline-entry
-          v-for="item in Info"
+
+    <template v-else>
+      <q-list
+        v-if="significantDates.length > 0"
+        bordered
+        separator
+        class="text-bold rounded-borders"
+      >
+        <q-item class="bg-grey-2">
+          <q-item-section>Upcoming Significant Dates</q-item-section>
+        </q-item>
+        <q-item
+          v-for="(item, idx) in significantDates"
           :key="item.Id"
-          :title="item.Title"
-          :subtitle="FormatDate(item.computedDate)"
-          :body="item.computedDetails"
-        />
-      </q-timeline>
-    </div>
+          :class="idx === 0 ? 'bg-green-1 text-green-10' : ''"
+        >
+          <q-item-section>{{ item.Title }}</q-item-section>
+          <q-item-section
+            side
+            :class="idx === 0 ? 'text-green-10' : ''"
+          >
+            {{ FormatIslamicDate(item.computedDate) }}
+          </q-item-section>
+        </q-item>
+      </q-list>
+
+      <q-list
+        v-if="upcomingIslamicMonths.length > 0"
+        bordered
+        separator
+        class="text-bold rounded-borders q-mt-md"
+      >
+        <q-item class="bg-grey-2">
+          <q-item-section>Upcoming Months</q-item-section>
+        </q-item>
+        <q-item
+          v-for="(item, idx) in upcomingIslamicMonths"
+          :key="item.Id"
+          :class="idx === 0 ? 'bg-green-1 text-green-10' : ''"
+        >
+          <q-item-section>{{ item.Title }}</q-item-section>
+          <q-item-section
+            side
+            :class="idx === 0 ? 'text-green-10' : ''"
+          >
+            {{ FormatIslamicDate(item.computedDate) }}
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </template>
   </div>
 </template>
 
@@ -60,6 +111,7 @@ import {
   RAMADAN_CONFIG,
   getTodayMidnight,
   createPrayerDateTime,
+  parseIsoDateLocal,
 } from "src/constants/appConfig";
 
 export default {
@@ -68,6 +120,8 @@ export default {
     return {
       rawInfo: [],
       Info: [],
+      significantDates: [],
+      upcomingIslamicMonths: [],
       current: 0,
       IsAfterMagrib: false,
     };
@@ -90,11 +144,12 @@ export default {
     ramadanStart: {
       type: Date,
     },
+    totalDays: {
+      type: Number,
+      default: RAMADAN_CONFIG.TOTAL_DAYS,
+    },
   },
   computed: {
-    totalDays() {
-      return RAMADAN_CONFIG.TOTAL_DAYS;
-    },
     getPercentComplete: function () {
       if (this.current <= 0 || Date.now() <= this.ramadanStart) return 0;
       return Math.round((this.current / this.totalDays) * 100);
@@ -110,9 +165,13 @@ export default {
     ramadanStart: function () {
       this.BuildDynamicInfoList();
     },
+    totalDays: function () {
+      this.BuildDynamicInfoList();
+    },
   },
   created() {
     this.LoadInfo();
+    this.LoadIslamicDates();
     this.DetermineIfMagribIsOver();
   },
   methods: {
@@ -122,6 +181,37 @@ export default {
         .then((response) => {
           this.rawInfo = Array.isArray(response.data) ? response.data : [];
           this.BuildDynamicInfoList();
+        })
+        .catch(() => {});
+    },
+    LoadIslamicDates() {
+      const today = this.currentDate || getTodayMidnight();
+
+      axios
+        .get(DATA_PATHS.SIGNIFICANT_DATES_LIST)
+        .then((response) => {
+          const list = Array.isArray(response.data) ? response.data : [];
+          const enriched = list.map((item) => ({
+            ...item,
+            computedDate: parseIsoDateLocal(item.EnglishDate),
+          }));
+          const upcoming = enriched.filter((x) => x.computedDate >= today);
+          this.significantDates =
+            upcoming.length > 0 ? upcoming.slice(0, 3) : enriched.slice(-3);
+        })
+        .catch(() => {});
+
+      axios
+        .get(DATA_PATHS.ISLAMIC_MONTHS_LIST)
+        .then((response) => {
+          const list = Array.isArray(response.data) ? response.data : [];
+          const enriched = list.map((item) => ({
+            ...item,
+            computedDate: parseIsoDateLocal(item.EnglishDate),
+          }));
+          const upcoming = enriched.filter((x) => x.computedDate >= today);
+          this.upcomingIslamicMonths =
+            upcoming.length > 0 ? upcoming.slice(0, 3) : enriched.slice(-3);
         })
         .catch(() => {});
     },
@@ -146,7 +236,7 @@ export default {
           });
           if (item.Id === 14) {
             const expectedEid = date.addToDate(baseStart, {
-              days: RAMADAN_CONFIG.TOTAL_DAYS,
+              days: this.totalDays,
             });
             computedDetails = `Sighting of the Shawwal new moon - Eid al-Fitr expected ${date.formatDate(
               expectedEid,
@@ -179,6 +269,9 @@ export default {
     },
     FormatDate(val) {
       return date.formatDate(val, "DD MMMM YYYY");
+    },
+    FormatIslamicDate(val) {
+      return date.formatDate(val, "DD-MMM-YYYY");
     },
     IsOddNight() {
       if (!this.IsAfterMagrib) return false;

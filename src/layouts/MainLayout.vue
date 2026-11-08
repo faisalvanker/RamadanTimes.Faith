@@ -54,7 +54,7 @@
       </div>
     </q-drawer>
 
-    <q-page-container>
+    <q-page-container role="main">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -78,13 +78,32 @@ export default {
   },
 
   created() {
-    fetchAnnualConfig().then((cfg) => {
-      this.hijriYear = cfg.HIJRI_YEAR;
-      this.isRamadanActive = isCurrentlyRamadan();
-      this.essentialLinks[0].title = this.isRamadanActive
-        ? "Ramadan Times"
-        : "Salaah Times";
-    });
+    this.syncAnnualConfig(false);
+  },
+
+  mounted() {
+    document.addEventListener("visibilitychange", this.handleVisibilityChange);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener("visibilitychange", this.handleVisibilityChange);
+  },
+
+  methods: {
+    syncAnnualConfig(forceRefresh = false) {
+      fetchAnnualConfig(forceRefresh).then((cfg) => {
+        this.hijriYear = cfg.HIJRI_YEAR;
+        this.isRamadanActive = isCurrentlyRamadan();
+        this.essentialLinks[0].title = this.isRamadanActive
+          ? "Ramadan Times"
+          : "Salaah Times";
+      });
+    },
+    handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        this.syncAnnualConfig(true);
+      }
+    },
   },
 
   data() {

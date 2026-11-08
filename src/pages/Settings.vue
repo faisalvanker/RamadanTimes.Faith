@@ -4,6 +4,7 @@
     <q-card>
       <q-card-section class="q-gutter-y-md">
         <q-select
+          for="city-select"
           filled
           clearable
           v-model="citySelection"
@@ -31,6 +32,7 @@
         </q-select>
 
         <q-field
+          tag="div"
           filled
           label="Calculation Method (Asr & Esha)"
           stack-label

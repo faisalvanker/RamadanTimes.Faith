@@ -4,7 +4,7 @@
 
 It operates seamlessly in two modes:
 - **During Ramadan (`Ramadan Times`):** Tracks daily Suhoor, Iftar, and salah times across all 30 days of Ramadan, complete with Daily Duas, Ramadan Progress (`%`), Ashra stages, Laylat al-Qadr odd-night indicators, and important Islamic dates.
-- **Outside of Ramadan (`Salaah Times`):** Automatically switches into a year-round perpetual Salaah timetable (`01 Jan – 31 Dec`) showing live current/upcoming salah times, countdowns, and full-year daily navigation.
+- **Outside of Ramadan (`Salaah Times`):** Automatically switches into a year-round perpetual Salaah timetable (`01 Jan – 31 Dec`) showing live current/upcoming salah times, countdowns, full-year daily navigation, and an `Info` tab displaying **Significant Islamic Dates** and **Islamic Months (1st of Month)**.
 
 ---
 
@@ -42,6 +42,7 @@ You also **do not need to rebuild the application** each year — the annual Ram
    - `"startDate"`: The 1st day of Ramadan in `YYYY-MM-DD` format based on South African moon sighting (e.g. `"2027-02-09"`).
    - `"totalDays"`: Leave as `30`. If the Shawwal moon is sighted on the 29th night, change `"totalDays"` to `29` so the app switches back to normal `Salaah Times` mode on Eid morning.
 3. Save the file on the server. Every user opening the app while online will immediately receive the updated dates without needing to reinstall or rebuild the app.
+4. **At the beginning of each calendar year:** Update `statics/data/significant_dates.csv` (**Significant Islamic Dates**) and `statics/data/islamic_months.csv` (**Islamic Months**) using the same JSON format as `info.csv` (`Id`, `EnglishDate`, `Title`). Like `config.json`, these files use a `NetworkFirst` strategy and can be updated directly on the server without rebuilding.
 
 ### Option B: Update in Git & Rebuild (If Deploying via CI/CD or Full Upload)
 

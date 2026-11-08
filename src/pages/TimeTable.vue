@@ -35,12 +35,7 @@
         >
           <q-tab name="next" label="Next" icon="date_range" />
           <q-tab name="times" label="Times" icon="schedule" />
-          <q-tab
-            v-if="isRamadanActive"
-            name="info"
-            label="Info"
-            icon="sort"
-          />
+          <q-tab name="info" label="Info" icon="sort" />
         </q-tabs>
 
         <q-tab-panels v-model="tab" animated>
@@ -66,13 +61,14 @@
             />
           </q-tab-panel>
 
-          <q-tab-panel v-if="isRamadanActive" name="info">
+          <q-tab-panel name="info">
             <InfoTab
               :index="current"
               :isRamadanActive="isRamadanActive"
               :currentDate="currentDate"
               :posts="posts"
               :ramadanStart="ramadanStarts"
+              :totalDays="totalDays"
             />
           </q-tab-panel>
         </q-tab-panels>
@@ -113,6 +109,7 @@ export default {
     fetchAnnualConfig().then((cfg) => {
       this.ramadanStarts = cfg.START_DATE;
       this.hijriYear = cfg.HIJRI_YEAR;
+      this.totalDays = cfg.TOTAL_DAYS;
       this.DetermineCurrentDay();
     });
     if (this.city !== "") {
@@ -137,6 +134,7 @@ export default {
       currentDate: null,
       ramadanStarts: RAMADAN_CONFIG.START_DATE,
       hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,
+      totalDays: RAMADAN_CONFIG.TOTAL_DAYS,
       AsrTime: ASR_METHODS.HANAFI,
     };
   },
@@ -164,12 +162,13 @@ export default {
       } else {
         this.ramadanStarts = RAMADAN_CONFIG.START_DATE;
       }
+      this.totalDays = RAMADAN_CONFIG.TOTAL_DAYS;
 
       const schedule = buildCitySchedule(
         this.rawCityData,
         this.currentDate,
         this.ramadanStarts,
-        RAMADAN_CONFIG.TOTAL_DAYS
+        this.totalDays
       );
 
       this.posts = schedule.posts;
@@ -189,17 +188,22 @@ export default {
         "days"
       );
       this.isRamadanActive =
-        page >= 0 && page < RAMADAN_CONFIG.TOTAL_DAYS;
+        page >= 0 && page < this.totalDays;
       this.current =
         page < 0
           ? 1
-          : page >= RAMADAN_CONFIG.TOTAL_DAYS
+          : page >= this.totalDays
             ? 1
             : page + 1;
     },
     handleVisibilityChange() {
       if (document.visibilityState === "visible") {
-        this.DetermineCurrentDay();
+        fetchAnnualConfig(true).then((cfg) => {
+          this.ramadanStarts = cfg.START_DATE;
+          this.hijriYear = cfg.HIJRI_YEAR;
+          this.totalDays = cfg.TOTAL_DAYS;
+          this.DetermineCurrentDay();
+        });
       }
     },
     InitialiseVariables() {

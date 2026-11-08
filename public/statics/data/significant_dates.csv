@@ -1,0 +1,32 @@
+[
+  {
+    "Id": 1,
+    "EnglishDate": "2027/01/23",
+    "Title": "Laylatul-Bara'ah"
+  },
+  {
+    "Id": 2,
+    "EnglishDate": "2027/02/09",
+    "Title": "First Fast of Ramadan"
+  },
+  {
+    "Id": 3,
+    "EnglishDate": "2027/03/10",
+    "Title": "Eid-ul-Fitr"
+  },
+  {
+    "Id": 4,
+    "EnglishDate": "2027/05/17",
+    "Title": "Eid-ul-Adha"
+  },
+  {
+    "Id": 5,
+    "EnglishDate": "2027/06/07",
+    "Title": "New Islamic Year"
+  },
+  {
+    "Id": 6,
+    "EnglishDate": "2027/06/16",
+    "Title": "Ashura"
+  }
+]

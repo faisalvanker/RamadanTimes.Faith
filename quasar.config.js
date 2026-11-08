@@ -21,7 +21,7 @@ export default configure(function (/* ctx */) {
 
     css: ["app.scss"],
 
-    extras: ["roboto-font", "material-icons"],
+    extras: ["material-icons"],
 
     build: {
       target: {
@@ -64,7 +64,11 @@ export default configure(function (/* ctx */) {
         cfg.globIgnores.push(
           "**/statics/data/city/**",
           "**/statics/data/info.csv",
-          "**/statics/data/config.json"
+          "**/statics/data/significant_dates.csv",
+          "**/statics/data/islamic_months.csv",
+          "**/statics/data/config.json",
+          "**/icons/apple-launch-*.png",
+          "**/icons/screenshot-*.png"
         );
         cfg.runtimeCaching = [
           {
@@ -90,7 +94,8 @@ export default configure(function (/* ctx */) {
             },
           },
           {
-            urlPattern: /statics\/data\/info\.csv/,
+            urlPattern:
+              /statics\/data\/(info|significant_dates|islamic_months)\.csv/,
             handler: "NetworkFirst",
             options: {
               cacheName: "ramadan-info-cache",

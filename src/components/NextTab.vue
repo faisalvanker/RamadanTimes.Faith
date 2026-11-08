@@ -183,6 +183,15 @@ export default {
       this.LoadDailyDua();
       this.LoadNextPrayer();
     },
+    isRamadanActive: function (newVal) {
+      if (newVal) {
+        this.LoadDailyDua();
+      }
+      this.LoadNextPrayer();
+    },
+    hijriYear: function () {
+      this.LoadNextPrayer();
+    },
     asrTime: function () {
       this.LoadNextPrayer();
     },
@@ -193,7 +202,7 @@ export default {
     this.LoadNextPrayer();
     this.countdownTimer = setInterval(() => {
       this.LoadNextPrayer();
-    }, 30000);
+    }, 10000);
     document.addEventListener("visibilitychange", this.handleVisibilityChange);
   },
   beforeUnmount() {
@@ -243,7 +252,9 @@ export default {
         ? `${item.FAST} Ramadan ${this.hijriYear}`
         : item.DAY_NAME || "";
 
-      if (Date.now() <= fajr) {
+      const now = Date.now();
+
+      if (now < fajr) {
         if (this.isRamadanActive) {
           this.SetCurrentNextPrayer("Suhoor", item.SERI, "Fajr", item.FAJR, fajr);
         } else {
@@ -252,32 +263,32 @@ export default {
         return;
       }
 
-      if (Date.now() <= fajrException) {
+      if (now < fajrException) {
         this.SetCurrentNextPrayer("Fajr", item.FAJR, "Sunrise", item.SUNRISE, fajrException);
         return;
       }
 
-      if (Date.now() <= zohr) {
+      if (now < zohr) {
         this.SetCurrentNextPrayer("Sunrise", item.SUNRISE, "Zohr", item.ZOHR, zohr);
         return;
       }
 
-      if (Date.now() <= asr) {
+      if (now < asr) {
         this.SetCurrentNextPrayer("Zohr", item.ZOHR, "Asr", asrSelectionTime, asr);
         return;
       }
 
-      if (Date.now() <= magrib) {
+      if (now < magrib) {
         this.SetCurrentNextPrayer("Asr", asrSelectionTime, magribLabel, item.IFTAR, magrib);
         return;
       }
 
-      if (Date.now() <= esha) {
+      if (now < esha) {
         this.SetCurrentNextPrayer(magribLabel, item.IFTAR, "Esha", eshaSelectionTime, esha);
         return;
       }
 
-      if (Date.now() >= esha) {
+      if (now >= esha) {
         let nextPrayer = "";
         let nextPrayerTime = "";
         let nextPrayerDate = null;

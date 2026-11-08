@@ -22,6 +22,8 @@ export const DATA_PATHS = {
   CONFIG: "statics/data/config.json",
   CITIES_LIST: "statics/data/cities.csv",
   INFO_LIST: "statics/data/info.csv",
+  SIGNIFICANT_DATES_LIST: "statics/data/significant_dates.csv",
+  ISLAMIC_MONTHS_LIST: "statics/data/islamic_months.csv",
   cityTimetable: (cityName) =>
     `statics/data/city/${cityName}.csv?v=${APP_VERSION}`,
   dailyDua: (dayNumber) => `statics/data/dua/${dayNumber}.csv`,
@@ -83,8 +85,8 @@ let configPromise = null;
  * Loads public/statics/data/config.json so annual changes do not require rebuilding the app.
  * Falls back to RAMADAN_CONFIG defaults if offline.
  */
-export function fetchAnnualConfig() {
-  if (!configPromise) {
+export function fetchAnnualConfig(forceRefresh = false) {
+  if (!configPromise || forceRefresh) {
     configPromise = axios
       .get(`${DATA_PATHS.CONFIG}?t=${Date.now()}`)
       .then((res) => {

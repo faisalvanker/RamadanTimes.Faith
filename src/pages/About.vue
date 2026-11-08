@@ -3,10 +3,15 @@
     <div class="text-h5 text-weight-bold q-mb-md">Welcome</div>
     <q-card>
       <q-card-section class="q-gutter-y-md">
-        <div class="text-body1">
+        <div v-if="isRamadanActive" class="text-body1">
           Ramadan Kareem {{ hijriYear }}. May this sacred month of Ramadan be of
           benefit to us and our family. May all our good deeds, prayers and acts
           of devotion be accepted during this month. Contact us on
+          {{ contactEmail }}
+        </div>
+        <div v-else class="text-body1">
+          Assalamu Alaikum. Welcome to Salaah &amp; Ramadan Times. Track daily
+          Salaah, Suhoor and Iftar times across South Africa. Contact us on
           {{ contactEmail }}
         </div>
         <div class="text-body1">
@@ -14,20 +19,29 @@
           get started
         </div>
 
-        <div class="row items-center q-gutter-sm">
-          <q-btn
-            color="primary"
-            label="Preferences"
-            icon="settings"
-            @click="RedirectToSettings"
-          />
-          <q-btn
-            outline
-            color="primary"
-            label="Share App"
-            icon="share"
-            @click="ShareApp"
-          />
+        <div class="row q-col-gutter-sm">
+          <div class="col-6 col-sm-auto">
+            <q-btn
+              unelevated
+              no-caps
+              color="primary"
+              label="Preferences"
+              icon="settings"
+              class="about-action-btn full-width"
+              @click="RedirectToSettings"
+            />
+          </div>
+          <div class="col-6 col-sm-auto">
+            <q-btn
+              outline
+              no-caps
+              color="primary"
+              label="Share App"
+              icon="share"
+              class="about-action-btn full-width"
+              @click="ShareApp"
+            />
+          </div>
         </div>
       </q-card-section>
     </q-card>
@@ -39,6 +53,7 @@ import {
   SHARE_URL,
   CONTACT_EMAIL_DISPLAY,
   RAMADAN_CONFIG,
+  isCurrentlyRamadan,
   fetchAnnualConfig,
 } from "src/constants/appConfig";
 
@@ -47,11 +62,13 @@ export default {
   created() {
     fetchAnnualConfig().then((cfg) => {
       this.hijriYear = cfg.HIJRI_YEAR;
+      this.isRamadanActive = isCurrentlyRamadan();
     });
   },
   data() {
     return {
       hijriYear: RAMADAN_CONFIG.HIJRI_YEAR,
+      isRamadanActive: isCurrentlyRamadan(),
       contactEmail: CONTACT_EMAIL_DISPLAY,
     };
   },
@@ -78,3 +95,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.about-action-btn {
+  min-width: 150px;
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+@media (max-width: 599px) {
+  .about-action-btn {
+    min-width: 0;
+  }
+}
+</style>
